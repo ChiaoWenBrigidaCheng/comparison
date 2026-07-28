@@ -843,12 +843,12 @@
     const TREND_FORMULA_TIP = "115/116推估採110-114實際入學人數做線性趨勢。公式：入學人數 = a + b × 學年度；b為110-114資料點估出的平均變動斜率，a為截距，再代入115或116。若推估值小於0，顯示為0。";
     const QUOTA_METHOD_TIP = "115招生名額樣本與補充說明\n資料來源：111-115學年度招生名額.xlsx。\n使用資料：學年度為115，學制包含「四技日間部」。\n加總方式：同一系所下的「四技日間部-技高生」與「四技日間部-普高生」名額相加。\n電子工程系[建工／燕巢校區]係將建工校區電子組、電信與系統組、資訊與數位IC設計組合併計算。";
     const SECTION_SOURCES = {
-      kpi: "1-6各系新生入學前學校統計.xlsx；111-115學年度招生名額.xlsx；outputs/research_capacity/research_capacity_summary.json。",
-      explorer: "招生趨勢使用1-6各系新生入學前學校統計.xlsx與111-115學年度招生名額.xlsx；新生來源中，114個人層級樣態使用入學年114年日間部四技學生.xlsx，110-114累計主要來源學校使用1-6各系新生入學前學校統計.xlsx；研究量能使用outputs/research_capacity/research_capacity_summary.json；產學收入使用產學_每師平均產學收入.xlsx；課程專業使用課表/*.pdf、課表/*.docx與課表/*.html整理資料。",
-      overview: "本區塊綜整招生趨勢、新生來源、研究量能、產學收入與課程專業資料；主要來源包含1-6各系新生入學前學校統計.xlsx、111-115學年度招生名額.xlsx、入學年114年日間部四技學生.xlsx、outputs/research_capacity/research_capacity_summary.json、產學_每師平均產學收入.xlsx與課表資料。",
+      kpi: "1-6各系新生入學前學校統計.xlsx；111-115學年度招生名額.xlsx；研究量能參考資料：擷取自SciVal (2018-2025)。",
+      explorer: "招生趨勢使用1-6各系新生入學前學校統計.xlsx與111-115學年度招生名額.xlsx；新生來源中，114個人層級樣態使用入學年114年日間部四技學生.xlsx，110-114累計主要來源學校使用1-6各系新生入學前學校統計.xlsx；研究量能擷取自SciVal (2018-2025)；產學收入使用產學_每師平均產學收入.xlsx；課程專業使用課表/*.pdf、課表/*.docx與課表/*.html整理資料。",
+      overview: "本區塊綜整招生趨勢、新生來源、研究量能、產學收入與課程專業資料；主要來源包含1-6各系新生入學前學校統計.xlsx、111-115學年度招生名額.xlsx、入學年114年日間部四技學生.xlsx、研究量能擷取自SciVal (2018-2025)、產學_每師平均產學收入.xlsx與課表資料。",
       enrollment: "1-6各系新生入學前學校統計.xlsx；111-115學年度招生名額.xlsx。",
       source: "114主要來源學校、戶籍縣市、畢業學校地理區域、入學管道：入學年114年日間部四技學生.xlsx；110-114累計主要來源學校：1-6各系新生入學前學校統計.xlsx。",
-      research: "outputs/research_capacity/research_capacity_summary.json。",
+      research: "擷取自SciVal (2018-2025)。",
       industry: "產學_每師平均產學收入.xlsx；網站呈現110-114年各系產學計畫總金額、專任教師數與每師平均產學收入，其中金額單位為萬元。",
       curriculum: "課表/*.pdf；課表/*.docx；課表/*.html；_curriculum_extract/*.txt。"
     };
@@ -1442,6 +1442,7 @@
           <div class="section-head">
             <div>
               <h3>研究量能</h3>
+              <span class="unit-badge">資料期間：2018-2025</span>
             </div>
           </div>
           ${researchTable(group)}
