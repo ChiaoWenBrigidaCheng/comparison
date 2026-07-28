@@ -487,13 +487,54 @@
     }
 
     .chart-note {
-      padding: 4px 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      padding: 6px 10px 0;
       color: var(--muted);
       font-size: 13px;
     }
 
     .chart-note strong {
       color: var(--navy);
+    }
+
+    .unit-badge {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 10px;
+      padding: 3px 9px;
+      border: 1px solid #b7d9e8;
+      border-radius: var(--radius-pill);
+      background: #eaf7fb;
+      color: #0f5f78;
+      font-size: 12px;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    .formula-details {
+      margin: 8px 10px 0;
+      border: 1px solid #d8e3f3;
+      border-radius: var(--radius);
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .formula-details summary {
+      cursor: pointer;
+      padding: 8px 10px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .formula-details p {
+      margin: 0;
+      padding: 0 10px 10px;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
     svg.line-chart {
@@ -988,7 +1029,15 @@
         `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${colors[index % colors.length]};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
       ).join("");
       return `<div class="chart-wrap">
-        <div class="chart-note"><strong>單位：</strong>入學人數（人）；橫軸：學年度</div>
+        <div class="chart-note">
+          <span><strong>單位：</strong>入學人數（人）</span>
+          <span><strong>橫軸：</strong>學年度</span>
+          <span><strong>115-116：</strong>趨勢推估值</span>
+        </div>
+        <details class="formula-details">
+          <summary>推估公式說明</summary>
+          <p>${escapeHtml(TREND_FORMULA_TIP)}</p>
+        </details>
         <svg class="line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(group.title)}入學趨勢，單位為入學人數，橫軸為學年度">
           <text x="${pad.left}" y="18" fill="#344054" font-size="12" font-weight="700">入學人數（人）</text>
           ${grid}
@@ -1266,7 +1315,8 @@
           <div class="section-head">
             <div>
               <h3>招生與入學趨勢</h3>
-              <p>110至114為原始資料實績，115至116為依110至114實績計算之趨勢推估。</p>
+              <span class="unit-badge">單位：人</span>
+              <p>110至114為原始資料實績，115至116為依110至114實績計算之趨勢推估；本區所有趨勢數值皆為入學人數。</p>
             </div>
           </div>
           ${lineChart(group)}
