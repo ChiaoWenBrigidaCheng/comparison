@@ -543,50 +543,6 @@
       display: block;
     }
 
-    .trend3d-wrap {
-      margin-top: 14px;
-      width: 100%;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, #ffffff 0%, #f3f9fc 100%);
-      padding: 12px;
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .trend3d-title {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px 16px;
-      padding: 2px 6px 8px;
-      color: var(--navy);
-    }
-
-    .trend3d-title strong {
-      font-size: 16px;
-    }
-
-    .trend3d-title span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    svg.trend3d-chart {
-      width: 100%;
-      min-height: 360px;
-      display: block;
-    }
-
-    .trend3d-caption {
-      margin: 0;
-      padding: 0 6px 4px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
     .table-wrap {
       width: 100%;
       overflow-x: auto;
@@ -1121,103 +1077,6 @@
       </div>`;
     }
 
-    function management3DTrendChart(group) {
-      if (group.id !== "management") return "";
-      const rows = group.enrollmentRows || [];
-      if (rows.length < 2) return "";
-      const years = SITE_DATA.years.slice(0, 5);
-      const width = 900;
-      const height = 380;
-      const pad = { left: 88, right: 118, top: 38, bottom: 88 };
-      const plotWidth = 620;
-      const plotHeight = 210;
-      const depthX = 90;
-      const depthY = 44;
-      const maxValue = Math.max(...rows.flatMap(row => row.values.slice(0, 5)), 10);
-      const axis = integerAxis(maxValue);
-      const zFor = rowIndex => rows.length === 1 ? 0 : rowIndex / (rows.length - 1);
-      const xStep = plotWidth / (years.length - 1);
-      const point = (yearIndex, value, z) => ({
-        x: pad.left + yearIndex * xStep + z * depthX,
-        y: height - pad.bottom - (value / axis.max) * plotHeight - z * depthY
-      });
-      const zeroPoint = (yearIndex, z) => point(yearIndex, 0, z);
-      const tickGrid = axis.ticks.map(value => {
-        const frontLeft = point(0, value, 0);
-        const frontRight = point(years.length - 1, value, 0);
-        const backRight = point(years.length - 1, value, 1);
-        return `<polyline points="${frontLeft.x},${frontLeft.y} ${frontRight.x},${frontRight.y} ${backRight.x},${backRight.y}" fill="none" stroke="#dbe6ef" stroke-width="1"/>
-          <text x="${pad.left - 46}" y="${frontLeft.y + 4}" fill="#667085" font-size="12">${fmt.format(value)}</text>`;
-      }).join("");
-      const floor = [
-        zeroPoint(0, 0),
-        zeroPoint(years.length - 1, 0),
-        zeroPoint(years.length - 1, 1),
-        zeroPoint(0, 1)
-      ].map(pt => `${pt.x},${pt.y}`).join(" ");
-      const yearLabels = years.map((year, index) => {
-        const p = zeroPoint(index, 0);
-        return `<text x="${p.x}" y="${height - 36}" text-anchor="middle" fill="#667085" font-size="12">${year}</text>`;
-      }).join("");
-      const deptAxisLabels = rows.map((row, rowIndex) => {
-        const z = zFor(rowIndex);
-        const p = zeroPoint(0, z);
-        return `<text x="${p.x - 10}" y="${p.y + 18}" text-anchor="end" fill="${colors[rowIndex % colors.length]}" font-size="12" font-weight="700">${escapeHtml(row.department)}</text>`;
-      }).join("");
-      const series = rows.map((row, rowIndex) => {
-        const z = zFor(rowIndex);
-        const color = colors[rowIndex % colors.length];
-        const actualValues = row.values.slice(0, 5);
-        const linePoints = actualValues.map((value, index) => {
-          const p = point(index, value, z);
-          return `${p.x},${p.y}`;
-        }).join(" ");
-        const risers = actualValues.map((value, index) => {
-          const top = point(index, value, z);
-          const bottom = zeroPoint(index, z);
-          return `<line x1="${bottom.x}" y1="${bottom.y}" x2="${top.x}" y2="${top.y}" stroke="${color}" stroke-width="1.3" opacity="0.24"/>`;
-        }).join("");
-        const markers = actualValues.map((value, index) => {
-          const p = point(index, value, z);
-          return `<circle cx="${p.x}" cy="${p.y}" r="5" fill="${color}" stroke="#ffffff" stroke-width="2"><title>${escapeHtml(row.department)} ${years[index]}：${fmt.format(value)}人</title></circle>`;
-        }).join("");
-        const start = actualValues[0];
-        const end = actualValues[actualValues.length - 1];
-        const change = start ? ((end - start) / start) * 100 : 0;
-        const sign = change > 0 ? "+" : "";
-        const endPoint = point(actualValues.length - 1, end, z);
-        const labelX = Math.min(endPoint.x + 12, width - 96);
-        return `${risers}<polyline points="${linePoints}" fill="none" stroke="${color}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>${markers}
-          <text x="${labelX}" y="${endPoint.y - 8}" fill="${color}" font-size="13" font-weight="800">${escapeHtml(row.department)}</text>
-          <text x="${labelX}" y="${endPoint.y + 10}" fill="#475467" font-size="12">${fmt.format(start)} → ${fmt.format(end)}（${sign}${change.toFixed(1)}%）</text>`;
-      }).reverse().join("");
-      return `<div class="trend3d-wrap" aria-label="國際企業系與企業管理系110至114年實際入學3D趨勢圖">
-        <div class="trend3d-title">
-          <strong>3D趨勢圖：110-114實際入學人數</strong>
-          <span>國際企業系下降、企業管理系上升，呈現兩系吸引力變化方向不同。</span>
-        </div>
-        <svg class="trend3d-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="國際企業系由70人降至60人，企業管理系由54人增至60人">
-          <defs>
-            <linearGradient id="trend3dFloor" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stop-color="#edf7fb"/>
-              <stop offset="100%" stop-color="#d8ecf4"/>
-            </linearGradient>
-          </defs>
-          <polygon points="${floor}" fill="url(#trend3dFloor)" stroke="#c9d9e6" stroke-width="1"/>
-          ${tickGrid}
-          <line x1="${point(0, 0, 0).x}" y1="${point(0, 0, 0).y}" x2="${point(0, axis.max, 0).x}" y2="${point(0, axis.max, 0).y}" stroke="#90a4b8" stroke-width="1.4"/>
-          <line x1="${point(0, 0, 0).x}" y1="${point(0, 0, 0).y}" x2="${point(years.length - 1, 0, 0).x}" y2="${point(years.length - 1, 0, 0).y}" stroke="#90a4b8" stroke-width="1.4"/>
-          <line x1="${point(years.length - 1, 0, 0).x}" y1="${point(years.length - 1, 0, 0).y}" x2="${point(years.length - 1, 0, 1).x}" y2="${point(years.length - 1, 0, 1).y}" stroke="#90a4b8" stroke-width="1.4"/>
-          <text x="${pad.left - 58}" y="${pad.top + 8}" fill="#344054" font-size="12" font-weight="700">入學人數</text>
-          <text x="${pad.left + plotWidth / 2}" y="${height - 14}" text-anchor="middle" fill="#344054" font-size="12" font-weight="700">學年度</text>
-          ${yearLabels}
-          ${deptAxisLabels}
-          ${series}
-        </svg>
-        <p class="trend3d-caption">本圖只呈現110至114年實際入學資料：國際企業系70人降至60人，企業管理系54人增至60人，顯示兩系不是同步衰退，而是呈現不同方向的招生吸引力變化。</p>
-      </div>`;
-    }
-
     function kpis(group) {
       const hiddenKpis = new Set(["115推估缺口", "研究論文量合計"]);
       const visibleKpis = group.kpis.filter(kpi => !hiddenKpis.has(kpi.label));
@@ -1576,7 +1435,6 @@
             </div>
           </div>
           ${lineChart(group)}
-          ${management3DTrendChart(group)}
           <div style="height:14px"></div>
           ${enrollmentTable(group)}
           ${sourceNote("enrollment")}
