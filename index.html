@@ -933,7 +933,7 @@
       "Top 10%期刊": "Publications in Top 10% Journal Percentiles by CiteScore Percentile (%)",
       "Top 10%引用": "Output in Top 10% Citation Percentiles (%)",
       "主題廣度": "Subject Area Main Category Count",
-      "Field-weighted citation index": "Field-Weighted Citation Impact (SciVal)"
+      "領域加權引用影響力 (FWCI)": "Field-Weighted Citation Impact (SciVal)"
     };
     const SECTION_SOURCES = {
       kpi: "1-6各系新生入學前學校統計.xlsx；111-115學年度招生名額.xlsx；研究量能參考資料：擷取自SciVal (2018-2025)。",
@@ -1271,7 +1271,7 @@
             escapeHtml(row.subjects),
             escapeHtml(row.citationIndex),
           ]);
-        return { headers: ["系所", researchIndicator("論文量"), researchIndicator("國際合作"), researchIndicator("產學合作占比"), researchIndicator("Top 10%期刊"), researchIndicator("Top 10%引用"), researchIndicator("主題廣度"), researchIndicator("Field-weighted citation index")], rows };
+        return { headers: ["系所", researchIndicator("論文量"), researchIndicator("國際合作"), researchIndicator("產學合作占比"), researchIndicator("Top 10%期刊"), researchIndicator("Top 10%引用"), researchIndicator("主題廣度"), researchIndicator("領域加權引用影響力 (FWCI)")], rows };
       }
       if (type === "industry") {
         const rows = group.industryRows
@@ -1341,7 +1341,7 @@
     function researchTable(group) {
       return `<div class="table-wrap"><table>
         <thead><tr>
-          <th>系所</th><th>${researchIndicator("論文量")}</th><th>${researchIndicator("國際合作")}</th><th>${researchIndicator("產學合作占比")}</th><th>${researchIndicator("Top 10%期刊")}</th><th>${researchIndicator("Top 10%引用")}</th><th>${researchIndicator("主題廣度")}</th><th>${researchIndicator("Field-weighted citation index")}</th>
+          <th>系所</th><th>${researchIndicator("論文量")}</th><th>${researchIndicator("國際合作")}</th><th>${researchIndicator("產學合作占比")}</th><th>${researchIndicator("Top 10%期刊")}</th><th>${researchIndicator("Top 10%引用")}</th><th>${researchIndicator("主題廣度")}</th><th>${researchIndicator("領域加權引用影響力 (FWCI)")}</th>
         </tr></thead>
         <tbody>${group.researchRows.map(row => `
           <tr>
