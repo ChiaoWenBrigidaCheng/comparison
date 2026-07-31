@@ -951,9 +951,21 @@
     const colors = ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#9C755F"];
 
     // Palette dedicated to assigning stable colors to individual source schools
+    // High-contrast, color-vision-friendly palette (12 colors)
+    // Based on Okabe-Ito + additional distinct hues to improve separation
     const SCHOOL_PALETTE = [
-      "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9",
-      "#8B5CF6", "#14B8A6", "#F97316", "#64748B", "#84CC16", "#F43F5E",
+      "#0072B2", // blue
+      "#D55E00", // vermillion
+      "#009E73", // green
+      "#CC79A7", // pink
+      "#E69F00", // orange
+      "#56B4E9", // sky blue
+      "#000000", // black (high contrast)
+      "#F0E442", // yellow
+      "#1B9E77", // teal
+      "#D95F02", // darker orange
+      "#7570B3", // purple
+      "#E7298A", // magenta
     ];
 
     function stableColor(label) {
