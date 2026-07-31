@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-30T10:21:43.634397</dc:date>
+    <dc:date>2026-07-31T14:40:39.493837</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -37,7 +37,7 @@ C 336.022472 143.644426 318.191266 125.813221 296.723073 113.41856
 C 275.254879 101.023899 250.897018 94.497231 226.107686 94.497231 
 L 226.107692 235.728 
 z
-" style="fill: #e69f00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #f28e2b; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 103.798261 306.343393 
@@ -47,7 +47,7 @@ C 250.897016 376.958769 275.254879 370.432101 296.723073 358.03744
 C 318.191266 345.642779 336.022455 327.811583 348.417124 306.343393 
 L 226.107692 235.728 
 z
-" style="fill: #009e73; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #e15759; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 111.849624 152.714604 
@@ -55,7 +55,7 @@ C 95.802877 174.801038 86.499267 201.073621 85.070478 228.336549
 C 83.641681 255.599474 90.148087 282.700604 103.798261 306.343393 
 L 226.107692 235.728 
 z
-" style="fill: #0072b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #4e79a7; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 196.744134 97.583467 
@@ -71,7 +71,7 @@ C 221.176734 94.497231 216.249092 94.75547 211.345076 95.270905
 C 206.44106 95.78634 201.567407 96.558246 196.744134 97.583467 
 L 226.107692 235.728 
 z
-" style="fill: #d55e00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #76b7b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2"/>
@@ -1123,7 +1123,7 @@ C 826.008292 166.908236 808.164779 141.112137 783.717027 122.766086
 C 759.269274 104.420036 729.514137 94.497231 698.948302 94.497231 
 L 698.948308 235.728 
 z
-" style="fill: #009e73; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #e15759; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_14">
     <path d="M 581.772406 314.56922 
@@ -1131,7 +1131,7 @@ C 602.323487 345.112781 634.023877 366.442208 670.059276 373.972548
 C 706.094676 381.502878 743.683759 374.652891 774.746341 354.895064 
 L 698.948308 235.728 
 z
-" style="fill: #e69f00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #f28e2b; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_15">
     <path d="M 577.869092 163.023434 
@@ -1147,7 +1147,7 @@ C 629.035549 112.152929 616.663019 120.022674 605.714471 129.645099
 C 594.765924 139.267524 585.372746 150.527159 577.869092 163.023434 
 L 698.948308 235.728 
 z
-" style="fill: #0072b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #4e79a7; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_17">
     <path d="M 684.426823 95.245769 
@@ -1155,7 +1155,7 @@ C 677.188169 95.99402 670.018161 97.300638 662.980883 99.153939
 C 655.943608 101.00724 649.060084 103.401684 642.391841 106.315881 
 L 698.948308 235.728 
 z
-" style="fill: #cc79a7; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #59a14f; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_18">
     <path d="M 698.948242 94.497231 
@@ -1163,7 +1163,7 @@ C 696.523586 94.497231 694.099333 94.559667 691.677893 94.684489
 C 689.256452 94.809312 686.838628 94.996461 684.426823 95.245769 
 L 698.948308 235.728 
 z
-" style="fill: #d55e00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #76b7b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_3"/>
    <g id="matplotlib.axis_4"/>

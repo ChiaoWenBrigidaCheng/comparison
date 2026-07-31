@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-30T10:21:44.629975</dc:date>
+    <dc:date>2026-07-31T14:40:39.976834</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -41,7 +41,7 @@ C 344.024371 153.34417 325.923453 132.150728 303.027468 117.281904
 C 280.131478 102.413081 253.408022 94.497231 226.107686 94.497231 
 L 226.107692 235.728 
 z
-" style="fill: #0072b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #4e79a7; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 131.605843 130.773104 
@@ -49,7 +49,7 @@ C 115.043678 145.685751 102.244203 164.309091 94.257406 185.115427
 C 86.270609 205.921761 83.321005 228.326129 85.650597 250.49064 
 L 226.107692 235.728 
 z
-" style="fill: #e69f00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #f28e2b; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 226.107694 94.497231 
@@ -918,7 +918,7 @@ C 811.572844 146.745974 793.610158 127.833501 771.652908 114.648801
 C 749.695657 101.464102 724.559964 94.497231 698.948302 94.497231 
 L 698.948308 235.728 
 z
-" style="fill: #0072b2; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #4e79a7; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
     <path d="M 595.301124 139.793691 
@@ -934,7 +934,7 @@ C 679.483714 94.497231 660.227639 98.521183 642.3919 106.315856
 C 624.556166 114.110529 608.522905 125.50891 595.301124 139.793691 
 L 698.948308 235.728 
 z
-" style="fill: #e69f00; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
+" style="fill: #f28e2b; stroke: #ffffff; stroke-width: 1.35; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_3"/>
    <g id="matplotlib.axis_4"/>
