@@ -952,20 +952,20 @@
 
     // Palette dedicated to assigning stable colors to individual source schools
     // High-contrast, color-vision-friendly palette (12 colors)
-    // Based on Okabe-Ito + additional distinct hues to improve separation
+    // Removed black and reduced similar blue shades to avoid visual confusion
     const SCHOOL_PALETTE = [
       "#0072B2", // blue
       "#D55E00", // vermillion
       "#009E73", // green
       "#CC79A7", // pink
       "#E69F00", // orange
-      "#56B4E9", // sky blue
-      "#000000", // black (high contrast)
       "#F0E442", // yellow
-      "#1B9E77", // teal
-      "#D95F02", // darker orange
       "#7570B3", // purple
+      "#A6761D", // brown/ochre
       "#E7298A", // magenta
+      "#66A61E", // lime
+      "#8C564B", // muted brown
+      "#E6AB02", // gold
     ];
 
     function stableColor(label) {
@@ -973,6 +973,10 @@
       const key = String(label);
       if (key === "未填") return "#94A3B8";
       if (key === "其他") return "#A855F7";
+      // Special-case common region labels to avoid collisions and ensure
+      // high visual separability (user requested 台中市 and 彰化縣 be distinct)
+      if (key.includes("台中")) return "#0072B2"; // ensure Taichung is blue
+      if (key.includes("彰化")) return "#D55E00"; // ensure Changhua is vermillion
       // simple deterministic hash to map a label to an index in SCHOOL_PALETTE
       let h = 0;
       for (let i = 0; i < key.length; i++) {
