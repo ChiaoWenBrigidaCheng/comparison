@@ -1152,7 +1152,7 @@
         `<text x="${x(index)}" y="${height - 12}" text-anchor="middle" fill="#667085" font-size="12">${year}</text>`
       ).join("");
       const series = rows.map((row, rowIndex) => {
-        const color = colors[rowIndex % colors.length];
+        const color = stableColor(row.department);
         const points = row.values.map((value, index) => `${x(index)},${y(value)}`).join(" ");
         const markers = row.values.map((value, index) =>
           `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="${color}"><title>${escapeHtml(row.department)} ${SITE_DATA.years[index]}: ${fmt.format(value)}人</title></circle>`
@@ -1160,7 +1160,7 @@
         return `<polyline points="${points}" fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${markers}`;
       }).join("");
       const legend = rows.map((row, index) =>
-        `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${colors[index % colors.length]};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
+        `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${stableColor(row.department)};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
       ).join("");
       return `<div class="chart-wrap">
         <div class="chart-note">
@@ -1405,7 +1405,7 @@
         `<text x="${x(index)}" y="${height - 12}" text-anchor="middle" fill="#667085" font-size="12">${year}</text>`
       ).join("");
       const series = rows.map((row, rowIndex) => {
-        const color = colors[rowIndex % colors.length];
+        const color = stableColor(row.department);
         const points = row.values.map((value, index) => `${x(index)},${y(value)}`).join(" ");
         const markers = row.values.map((value, index) =>
           `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="${color}"><title>${escapeHtml(row.department)} ${years[index]}: ${fmt.format(value)}萬元/師</title></circle>`
@@ -1413,7 +1413,7 @@
         return `<polyline points="${points}" fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${markers}`;
       }).join("");
       const legend = rows.map((row, index) =>
-        `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${colors[index % colors.length]};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
+        `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${stableColor(row.department)};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
       ).join("");
       return `<div class="chart-wrap">
         <div class="chart-note">
