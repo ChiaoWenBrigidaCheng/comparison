@@ -1,24 +1,24 @@
 SCHOOL_PALETTE = [
-    "#FFB3BA", # pastel pink
-    "#FFDFBA", # pastel peach
-    "#FFFFBA", # pastel yellow
-    "#BAFFC9", # pastel mint
-    "#BAE1FF", # pastel baby blue
-    "#E6E6FA", # lavender
-    "#FDEBD0", # cream
-    "#D5E8D4", # pale green
-    "#F4C2C2", # rose
-    "#C9C9FF", # pale purple
-    "#B2F0E6", # aqua
-    "#FADADD", # light rose
-    "#FFE4E1", # misty rose
-    "#F0FFF0", # honeydew
-    "#FFF5EE", # seashell
-    "#E0FFFF", # light cyan
-    "#FFEFD5", # papaya
-    "#E8EAF6", # very light indigo
-    "#F6E6FF", # light magenta
-    "#E3F2FD", # soft sky
+    "#FF8A9A", # deeper pastel pink
+    "#FFCC99", # deeper pastel peach
+    "#FFFB8F", # deeper pastel yellow
+    "#7FE0A8", # deeper pastel mint
+    "#7FBFFB", # deeper baby blue
+    "#CFCFF7", # deeper lavender
+    "#F9D7B0", # deeper cream
+    "#A8D2B0", # deeper pale green
+    "#EA9A9A", # deeper rose
+    "#9FA0FF", # deeper pale purple
+    "#7EDFD1", # deeper aqua
+    "#F4BFC0", # deeper light rose
+    "#FFD1CC", # deeper misty rose
+    "#DFFFE0", # deeper honeydew
+    "#FFE8D8", # deeper seashell
+    "#BEEFF0", # deeper light cyan
+    "#FFD9B0", # deeper papaya
+    "#CFCFF0", # deeper very light indigo
+    "#E8CCFF", # deeper light magenta
+    "#BFDFF9", # deeper soft sky
 ]
 
 
@@ -31,9 +31,9 @@ def stableColor(label):
     if key == "其他":
         return "#A855F7"
     if "台中" in key:
-        return "#BAE1FF"
+        return "#7FBFFB"
     if "彰化" in key:
-        return "#C9C9FF"
+        return "#9FA0FF"
     h = 0
     for ch in key:
         h = (h * 31 + ord(ch)) & 0xFFFFFFFF
