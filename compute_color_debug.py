@@ -1,6 +1,8 @@
 SCHOOL_PALETTE = [
-    "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#F0E442",
-    "#7570B3", "#A6761D", "#E7298A", "#66A61E", "#8C564B", "#E6AB02",
+    "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E6E6FA",
+    "#FDEBD0", "#D5E8D4", "#F4C2C2", "#C9C9FF", "#B2F0E6", "#FADADD",
+    "#FFE4E1", "#F0FFF0", "#FFF5EE", "#E0FFFF", "#FFEFD5", "#E8EAF6",
+    "#F6E6FF", "#E3F2FD",
 ]
 
 def stableColorIndex(label):

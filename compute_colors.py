@@ -1,16 +1,24 @@
 SCHOOL_PALETTE = [
-    "#0072B2", # blue
-    "#D55E00", # vermillion
-    "#009E73", # green
-    "#CC79A7", # pink
-    "#E69F00", # orange
-    "#F0E442", # yellow
-    "#7570B3", # purple
-    "#A6761D", # brown/ochre
-    "#E7298A", # magenta
-    "#66A61E", # lime
-    "#8C564B", # muted brown
-    "#E6AB02", # gold
+    "#FFB3BA", # pastel pink
+    "#FFDFBA", # pastel peach
+    "#FFFFBA", # pastel yellow
+    "#BAFFC9", # pastel mint
+    "#BAE1FF", # pastel baby blue
+    "#E6E6FA", # lavender
+    "#FDEBD0", # cream
+    "#D5E8D4", # pale green
+    "#F4C2C2", # rose
+    "#C9C9FF", # pale purple
+    "#B2F0E6", # aqua
+    "#FADADD", # light rose
+    "#FFE4E1", # misty rose
+    "#F0FFF0", # honeydew
+    "#FFF5EE", # seashell
+    "#E0FFFF", # light cyan
+    "#FFEFD5", # papaya
+    "#E8EAF6", # very light indigo
+    "#F6E6FF", # light magenta
+    "#E3F2FD", # soft sky
 ]
 
 
@@ -23,9 +31,9 @@ def stableColor(label):
     if key == "其他":
         return "#A855F7"
     if "台中" in key:
-        return "#0072B2"
+        return "#BAE1FF"
     if "彰化" in key:
-        return "#D55E00"
+        return "#C9C9FF"
     h = 0
     for ch in key:
         h = (h * 31 + ord(ch)) & 0xFFFFFFFF
