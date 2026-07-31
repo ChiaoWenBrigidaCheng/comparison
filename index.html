@@ -950,6 +950,25 @@
     };
     const colors = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#6A3D9A", "#E7298A", "#4D4D4D"];
 
+    // Palette dedicated to assigning stable colors to individual source schools
+    const SCHOOL_PALETTE = [
+      "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9",
+      "#8B5CF6", "#14B8A6", "#F97316", "#64748B", "#84CC16", "#F43F5E",
+    ];
+
+    function stableColor(label) {
+      if (!label) return "#94A3B8";
+      const key = String(label);
+      if (key === "未填") return "#94A3B8";
+      if (key === "其他") return "#A855F7";
+      // simple deterministic hash to map a label to an index in SCHOOL_PALETTE
+      let h = 0;
+      for (let i = 0; i < key.length; i++) {
+        h = (h * 31 + key.charCodeAt(i)) >>> 0;
+      }
+      return SCHOOL_PALETTE[h % SCHOOL_PALETTE.length];
+    }
+
     const fmt = new Intl.NumberFormat("zh-TW", { maximumFractionDigits: 1 });
 
     function escapeHtml(value) {
@@ -1476,7 +1495,7 @@
       let startAngle = 0;
       const slices = rows.map((row, index) => {
         const count = Number(row.count) || 0;
-        const color = colors[index % colors.length];
+        const color = stableColor(row.label);
         if (count <= 0 || total <= 0) return "";
         const span = (count / total) * 360;
         const endAngle = startAngle + span;
@@ -1572,7 +1591,7 @@
         const title = `${profile.department} ${sourceYearLabel(year)} ${chart.label}`;
         const legend = rows.map((row, index) => `
           <div class="pie-legend-row">
-            <span class="pie-legend-swatch" style="background:${colors[index % colors.length]}"></span>
+            <span class="pie-legend-swatch" style="background:${stableColor(row.label)}"></span>
             <span>${escapeHtml(row.label)}</span>
             <strong>${escapeHtml(row.count)}人 / ${escapeHtml(row.share)}</strong>
           </div>
