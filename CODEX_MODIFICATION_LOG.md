@@ -1851,3 +1851,11 @@
 - 修改 `comparison/index.html`：在 `renderGroup(group)` 中移除 KPI 下方的 `${dataExplorer(group)}`，改放到「課程與專業差異」section 之後，成為頁面最下方區塊。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
 - 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
+
+## 2026-08-03 下午 - 網站說明：學生群與生源變化新增計算方式
+
+- 修改 `comparison/index.html` 的「學生群與生源變化」區塊，在表格上方新增「群類對照與來源推估計算方式」說明框。
+- 說明內容包含：使用 `1-6各系新生入學前學校統計.xlsx` 取得來源學校與人數、使用 `5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx` 對照同年度同來源學校的技高群類高三人數、無法對照資料的處理方式，以及兩個公式：推估來源群類人數、群類對照率。
+- 調整表格下方註記，明確說明推估來源群類是來源學校層級推估，非個別學生實際群類。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
+- 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
