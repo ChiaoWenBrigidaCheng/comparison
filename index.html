@@ -834,18 +834,119 @@ $1
       color: var(--muted);
     }
 
-    .method-formula code {
-      display: block;
-      white-space: normal;
-      line-height: 1.7;
-      padding: 8px 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #ffffff;
-      color: var(--ink);
-      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+$1
+    .student-group-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
     }
-    .split {
+
+    .student-group-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: var(--shadow-subtle);
+      padding: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .student-group-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .student-group-card-head h5 {
+      margin: 0;
+      color: var(--brand);
+      font-size: 16px;
+    }
+
+    .student-group-change {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .match-ring {
+      width: 64px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: conic-gradient(var(--brand) calc(var(--match, 0) * 1%), #e7edf5 0);
+    }
+
+    .match-ring span {
+      width: 48px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .student-visual-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .group-bar-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .group-bar-row {
+      display: grid;
+      grid-template-columns: minmax(80px, 1fr) minmax(110px, 1.4fr) max-content;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .group-bar-label {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .group-bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #edf3f8;
+      overflow: hidden;
+    }
+
+    .group-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      min-width: 3px;
+    }
+
+    .source-trend-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdff;
+    }
+
+    .source-trend-svg text {
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      fill: var(--muted);
+      font-size: 10px;
+    }    .split {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 14px;
@@ -2099,22 +2200,76 @@ $1
       return `${sign}${delta}人 / ${percentText}`;
     }
 
-    function sourceGroupTrends(group) {
+    function percentNumber(value) {
+      const number = Number(String(value ?? "").replace("%", ""));
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function sourceTrendBars(profile, tech) {
       const years = ["110", "111", "112", "113", "114"];
+      const values = years.map(year => Number(profile.fiveYearByYear?.[year] ?? tech.byYear?.[year] ?? 0));
+      const max = Math.max(...values, 1);
+      const width = 260;
+      const height = 126;
+      const pad = { left: 20, right: 12, top: 20, bottom: 28 };
+      const innerWidth = width - pad.left - pad.right;
+      const innerHeight = height - pad.top - pad.bottom;
+      const barWidth = innerWidth / years.length * 0.48;
+      const color = sourceColor(profile.department);
+      const bars = years.map((year, index) => {
+        const value = values[index];
+        const x = pad.left + index * (innerWidth / (years.length - 1 || 1));
+        const barHeight = (value / max) * innerHeight;
+        const y = pad.top + innerHeight - barHeight;
+        return `<g>
+          <rect x="${(x - barWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(barHeight, 2).toFixed(1)}" rx="5" fill="${color}" opacity="0.82"><title>${year}：${value}人</title></rect>
+          <text x="${x.toFixed(1)}" y="${Math.max(y - 5, 12).toFixed(1)}" text-anchor="middle">${escapeHtml(value)}</text>
+          <text x="${x.toFixed(1)}" y="${(height - 9).toFixed(1)}" text-anchor="middle">${year}</text>
+        </g>`;
+      }).join("");
+      return `<svg class="source-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(profile.department)} 110至114生源變化">
+        <line x1="${pad.left}" y1="${pad.top + innerHeight}" x2="${width - pad.right}" y2="${pad.top + innerHeight}" stroke="#dbe5ef" stroke-width="1" />
+        ${bars}
+      </svg>`;
+    }
+
+    function studentGroupBars(rows) {
+      const visibleRows = (rows || []).filter(row => row.label !== "未對照/未填").slice(0, 4);
+      if (!visibleRows.length) return `<div class="empty-state">目前沒有可視覺化的群類資料。</div>`;
+      return `<div class="group-bar-list">${visibleRows.map(row => {
+        const pct = percentNumber(row.share);
+        const width = Math.max(Math.min(pct, 100), 2);
+        return `<div class="group-bar-row">
+          <span class="group-bar-label">${escapeHtml(row.label)}</span>
+          <span class="group-bar-track"><span class="group-bar-fill" style="width:${width.toFixed(1)}%; background:${sourceColor(row.label)}"></span></span>
+          <strong>${escapeHtml(row.count)}人 / ${escapeHtml(row.share)}</strong>
+        </div>`;
+      }).join("")}</div>`;
+    }
+
+    function sourceGroupTrends(group) {
       const techGroupData = STUDENT_GROUP_DATA?.groups?.[group.id] || {};
-      const rows = (group.sourceProfiles || []).map(profile => {
+      const cards = (group.sourceProfiles || []).map(profile => {
         const tech = techGroupData[profile.department] || {};
-        const techRows = (tech.topGroups || []).filter(row => row.label !== "未對照/未填");
-        const groupCell = techRows.length ? distText(techRows, 4) : "—";
-        return [
-          `<strong>${escapeHtml(profile.department)}</strong>`,
-          groupCell,
-          escapeHtml(tech.matchedShare || "—"),
-          ...years.map(year => escapeHtml(profile.fiveYearByYear?.[year] ?? tech.byYear?.[year] ?? "—")),
-          escapeHtml(sourceTrendChangeText(profile)),
-          distText(profile.fiveYearTopSchools, 4)
-        ];
-      });
+        const matchRate = percentNumber(tech.matchedShare);
+        return `<article class="student-group-card">
+          <div class="student-group-card-head">
+            <div>
+              <h5>${escapeHtml(profile.department)}</h5>
+              <div class="student-group-change">110-114變化：${escapeHtml(sourceTrendChangeText(profile))}</div>
+            </div>
+            <div class="match-ring" style="--match:${Math.max(0, Math.min(matchRate, 100)).toFixed(1)}"><span>${escapeHtml(tech.matchedShare || "—")}</span></div>
+          </div>
+          <div>
+            <div class="student-visual-title">推估來源群類</div>
+            ${studentGroupBars(tech.topGroups || [])}
+          </div>
+          <div>
+            <div class="student-visual-title">110-114 生源變化（人）</div>
+            ${sourceTrendBars(profile, tech)}
+          </div>
+        </article>`;
+      }).join("");
       return `<div class="source-trend-block">
         <h4>學生群與生源變化</h4>
         <div class="method-box">
@@ -2129,8 +2284,8 @@ $1
             <code>群類對照率 = 可完成群類對照的來源學校入學生數 ÷ 110-114 年該系來源學校入學生總數</code>
           </div>
         </div>
-        ${tableHtml(["系所", "推估來源群類", "群類對照率", "110", "111", "112", "113", "114", "110-114變化", "110-114主要來源學校"], rows)}
-        <div class="source-chart-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類；群類對照率代表可由技高群類檔對照的來源學校人數占比。</div>
+        <div class="student-group-grid">${cards}</div>
+        <div class="source-chart-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類；圓形指標為群類對照率，代表可由技高群類檔對照的來源學校人數占比。</div>
       </div>`;
     }
     function infoRow(label, value) {

@@ -1859,3 +1859,11 @@
 - 調整表格下方註記，明確說明推估來源群類是來源學校層級推估，非個別學生實際群類。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
 - 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
+## 2026-08-03 下午 - 網站呈現：學生群與生源變化改為圖示卡片
+
+- 修改 `comparison/index.html` 的「學生群與生源變化」區塊，將原本的表格呈現改為每系一張視覺化卡片。
+- 每張卡片包含：群類對照率圓形指標、推估來源群類橫條圖、110-114 生源變化迷你長條圖。
+- 移除原表格中的「110-114主要來源學校」欄位，避免與上方「新生來源樣態」中的來源學校分析重複。
+- 保留「群類對照與來源推估計算方式」說明框與下方資料限制註記。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
+- 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
