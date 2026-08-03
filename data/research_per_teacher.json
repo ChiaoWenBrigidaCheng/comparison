@@ -1,0 +1,63 @@
+{
+  "generatedAt": "D:\\喬文作業區\\115\\115  校務研究\\115 名稱及課程相似系所比較分析\\系所雷同比較Raw data\\outputs\\research_capacity\\三組研究量能重整.xlsx",
+  "source_research": "D:\\喬文作業區\\115\\115  校務研究\\115 名稱及課程相似系所比較分析\\系所雷同比較Raw data\\相似系所研究表現評比.xlsx",
+  "source_industry": "D:\\喬文作業區\\115\\115  校務研究\\115 名稱及課程相似系所比較分析\\系所雷同比較Raw data\\產學_每師平均產學收入.xlsx",
+  "entries": [
+    {
+      "department": "國際企業系",
+      "group": "01 國際企業系 vs 企業管理系",
+      "papers": 89,
+      "teachers": 13.0,
+      "papers_per_teacher": 6.846153846153846
+    },
+    {
+      "department": "企業管理系",
+      "group": "01 國際企業系 vs 企業管理系",
+      "papers": 52,
+      "teachers": 13.0,
+      "papers_per_teacher": 4.0
+    },
+    {
+      "department": "電子工程系[建工|燕巢校區]",
+      "group": "02 電子工程系校區比較",
+      "papers": 615,
+      "teachers": 41.0,
+      "papers_per_teacher": 15.0
+    },
+    {
+      "department": "電子工程系[第一]",
+      "group": "02 電子工程系校區比較",
+      "papers": 119,
+      "teachers": 41.0,
+      "papers_per_teacher": 2.902439024390244
+    },
+    {
+      "department": "財務管理系",
+      "group": "03 財金會計稅務四系比較",
+      "papers": 29,
+      "teachers": 10.0,
+      "papers_per_teacher": 2.9
+    },
+    {
+      "department": "財政稅務系",
+      "group": "03 財金會計稅務四系比較",
+      "papers": 42,
+      "teachers": 11.0,
+      "papers_per_teacher": 3.8181818181818183
+    },
+    {
+      "department": "金融系",
+      "group": "03 財金會計稅務四系比較",
+      "papers": 86,
+      "teachers": 16.0,
+      "papers_per_teacher": 5.375
+    },
+    {
+      "department": "會計資訊系",
+      "group": "03 財金會計稅務四系比較",
+      "papers": 17,
+      "teachers": 15.0,
+      "papers_per_teacher": 1.1333333333333333
+    }
+  ]
+}
