@@ -1867,3 +1867,18 @@
 - 保留「群類對照與來源推估計算方式」說明框與下方資料限制註記。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
 - 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
+## 2026-08-03 下午 - 調整學生群與來源群類變化區塊
+
+- 更新 `comparison/data/student_group_data.json`，新增各系 `annualGroups` 欄位，保留110至114年各來源群類推估人數與百分比。
+- 修改 `comparison/index.html`，將「學生群與來源群類變化」移至「招生與入學趨勢」下方，並自「新生來源樣態」段落移除重複插入。
+- 依使用者要求移除原本過大的生源變化 bar 與主要來源學校欄位；本區改為聚焦「推估來源群類」與「群類年度變化（推估人數）」。
+- 縮小群類橫條與卡片視覺，新增年度矩陣呈現110至114群類變化，避免與上方招生趨勢圖重複。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+### 追加文字修正
+- 微調「新生來源樣態」說明，移除與新區塊重複的「生源變化與推估來源群類」描述，讓該段只聚焦戶籍、學校區域、入學管道、公私立別與來源學校。
+- 已重新同步 `comparison/index.html` 至 `系所雷同比較Raw data/outputs/comparison_site/index.html`，並以 `node --check` 驗證腳本通過。
+### 追加清理
+- 移除 `comparison/index.html` 中三處先前樣式替換殘留的獨立 `$1` 字元。
+- 重新確認「學生群與來源群類變化」只於「招生與入學趨勢」下方呼叫一次，且在「新生來源樣態」之前。
+- 已再次同步 `comparison/index.html` 與 `comparison/data/student_group_data.json` 至輸出網站資料夾，並以 `node --check` 驗證腳本通過。
