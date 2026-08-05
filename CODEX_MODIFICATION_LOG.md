@@ -1958,3 +1958,20 @@
 - 重點修正：`新北市` 固定為藍色 `#0072B2`，`台南市` 固定為橘色 `#E69F00`，使兩者在圓餅圖與圖例中更容易區分。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-05 - 全站新生來源 Pie Chart 高對比配色
+
+- 修改 `comparison/index.html` 的新生來源圓餅圖配色邏輯，新增 `piePalette` 與 `pieRowsWithColors()`。
+- 圓餅圖不再以學校名稱或分類名稱 hash 自動取色，而是依每張 pie chart 目前顯示的切片順序配置高對比、不重複色盤，避免同一張圖內出現相近色或重複色。
+- `其他` 固定為淺藍灰 `#94A3B8`，`未填` 固定為深色 `#111827`；其餘切片依高對比色盤配置，前段色盤使用藍、紅、綠、紫、洋紅、黃、青等差異較大的顏色。
+- 圓餅圖切片加上白色分隔線，提升相鄰切片辨識度。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+- 驗證：掃描網站資料中 288 張新生來源 pie chart，單張最多 7 個切片，未發現同一張圖內顏色重複；最小 RGB 色差約 94.8。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+## 2026-08-05 - 新生來源 Pie Chart 改為柔和配色
+
+- 修改 `comparison/index.html` 的新生來源圓餅圖色盤，將前次高對比強色改為柔和版配色。
+- 移除 pie chart 相關配色中的黑色與深灰色；`未填` 改為柔和鼠尾草色 `#A0B085`，`其他` 改為柔和灰藍 `#B8C4D3`。
+- 同步調整 `sourceColorOverrides`、`sourceFallbackColors`、`piePalette` 與 `neutralColors` 中的深色，避免來源視覺元件再出現黑色切片。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+- 驗證：掃描網站資料中 288 張新生來源 pie chart，單張最多 7 個切片，未發現同一張圖內顏色重複，且未使用黑色或前次深灰色碼。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
