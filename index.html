@@ -785,33 +785,6 @@
       color: var(--ink);
       margin-bottom: 8px;
     }
-    .group-bar-list {
-      display: grid;
-      gap: 8px;
-    }
-    .group-bar-row {
-      display: grid;
-      grid-template-columns: minmax(80px, 1fr) minmax(110px, 1.4fr) max-content;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .group-bar-label {
-      color: var(--ink);
-      overflow-wrap: anywhere;
-    }
-    .group-bar-track {
-      height: 10px;
-      border-radius: 999px;
-      background: #edf3f8;
-      overflow: hidden;
-    }
-    .group-bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      min-width: 3px;
-    }
     .source-trend-svg {
       width: 100%;
       height: auto;
@@ -836,16 +809,25 @@
       width: 40px;
       font-size: 11px;
     }
-    .group-bar-list {
-      gap: 6px;
+    .annual-heatmap-wrap {
+      display: grid;
+      gap: 8px;
     }
-    .group-bar-row {
-      grid-template-columns: minmax(76px, 1fr) minmax(86px, 1fr) max-content;
-      gap: 6px;
+    .annual-heatmap-legend {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      color: var(--muted);
       font-size: 12px;
+      line-height: 1.4;
     }
-    .group-bar-track {
-      height: 7px;
+    .annual-heatmap-scale {
+      width: 92px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: linear-gradient(90deg, #eef6ff 0%, #bdd7ef 45%, #2f80c2 100%);
     }
     .annual-group-matrix {
       border: 1px solid var(--line);
@@ -856,7 +838,7 @@
     .annual-group-row {
       display: grid;
       grid-template-columns: minmax(86px, 1.2fr) repeat(5, minmax(42px, .7fr));
-      min-height: 32px;
+      min-height: 34px;
       border-bottom: 1px solid var(--line);
       align-items: stretch;
     }
@@ -885,12 +867,20 @@
       font-weight: 700;
       color: var(--ink);
       overflow-wrap: anywhere;
+      background: #ffffff;
     }
-    .annual-group-value {
-      font-weight: 700;
-      border-radius: 8px;
-      margin: 4px;
-      padding: 4px 2px;
+    .annual-heat-cell {
+      background: var(--heat-bg);
+      color: var(--heat-text);
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.52);
+      text-shadow: var(--heat-shadow);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .annual-heat-cell:hover {
+      transform: scale(1.03);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.72), 0 8px 18px rgba(31,41,55,.12);
+      z-index: 1;
     }
     .list-panel {
       padding: 16px;
@@ -2706,24 +2696,27 @@
       const number = Number(String(value ?? "").replace("%", ""));
       return Number.isFinite(number) ? number : 0;
     }
-    function studentGroupBars(rows) {
-      const visibleRows = (rows || []).filter(row => row.label !== "未對照/未填").slice(0, 3);
-      if (!visibleRows.length) return `<div class="empty-state">目前沒有可視覺化的群類資料。</div>`;
-      return `<div class="group-bar-list">${visibleRows.map(row => {
-        const pct = percentNumber(row.share);
-        const width = Math.max(Math.min(pct, 100), 2);
-        return `<div class="group-bar-row">
-          <span class="group-bar-label">${escapeHtml(row.label)}</span>
-          <span class="group-bar-track"><span class="group-bar-fill" style="width:${width.toFixed(1)}%; background:${sourceColor(row.label)}"></span></span>
-          <strong>${escapeHtml(row.count)}人 / ${escapeHtml(row.share)}</strong>
-        </div>`;
-      }).join("")}</div>`;
-    }
     function annualGroupMatrix(rows) {
       const years = ["110", "111", "112", "113", "114"];
       const visibleRows = (rows || []).slice(0, 3);
       if (!visibleRows.length) return `<div class="empty-state">目前沒有可視覺化的年度群類資料。</div>`;
       const maxValue = Math.max(...visibleRows.flatMap(row => years.map(year => Number(row.values?.[year] || 0))), 1);
+      const heatStyle = (label, value) => {
+        const base = sourceColor(label).replace("#", "");
+        const hex = base.length === 3 ? base.split("").map(char => char + char).join("") : base;
+        const parsed = Number.parseInt(hex, 16);
+        const r = (parsed >> 16) & 255;
+        const g = (parsed >> 8) & 255;
+        const b = parsed & 255;
+        const level = Math.min(Math.max(Number(value || 0) / maxValue, 0), 1);
+        const alpha = 0.16 + level * 0.66;
+        const darkText = level < 0.54;
+        return {
+          bg: `rgba(${r}, ${g}, ${b}, ${alpha.toFixed(2)})`,
+          text: darkText ? "var(--ink)" : "#ffffff",
+          shadow: darkText ? "none" : "0 1px 2px rgba(0,0,0,.24)"
+        };
+      };
       const header = `<div class="annual-group-row annual-group-head">
         <div class="annual-group-cell annual-group-label">群類</div>
         ${years.map(year => `<div class="annual-group-cell">${year}</div>`).join("")}
@@ -2732,11 +2725,16 @@
         <div class="annual-group-cell annual-group-label">${escapeHtml(row.label)}</div>
         ${years.map(year => {
           const value = Number(row.values?.[year] || 0);
-          const alpha = 0.10 + Math.min(value / maxValue, 1) * 0.38;
-          return `<div class="annual-group-cell"><span class="annual-group-value" style="background:${sourceColor(row.label)}${Math.round(alpha * 255).toString(16).padStart(2, "0")}">${escapeHtml(row.values?.[year] || "0")}</span></div>`;
+          const display = row.values?.[year] || "0";
+          const heat = heatStyle(row.label, value);
+          const title = `${row.label} ${year}年：${display}人；色塊越深代表推估人數越多。`;
+          return `<div class="annual-group-cell annual-heat-cell" title="${escapeHtml(title)}" style="--heat-bg:${heat.bg}; --heat-text:${heat.text}; --heat-shadow:${heat.shadow};">${escapeHtml(display)}</div>`;
         }).join("")}
       </div>`).join("");
-      return `<div class="annual-group-matrix">${header}${body}</div>`;
+      return `<div class="annual-heatmap-wrap">
+        <div class="annual-heatmap-legend"><span>低</span><span class="annual-heatmap-scale" aria-hidden="true"></span><span>高</span><span>顏色＝來源群類；深淺＝推估人數</span></div>
+        <div class="annual-group-matrix">${header}${body}</div>
+      </div>`;
     }
     function sourceGroupTrends(group) {
       const techGroupData = STUDENT_GROUP_DATA?.groups?.[group.id] || {};
@@ -2750,10 +2748,6 @@
               <div class="student-group-change">群類對照率</div>
             </div>
             <div class="match-ring" style="--match:${Math.max(0, Math.min(matchRate, 100)).toFixed(1)}"><span>${escapeHtml(tech.matchedShare || "—")}</span></div>
-          </div>
-          <div>
-            <div class="student-visual-title">110-114 推估來源群類</div>
-            ${studentGroupBars(tech.topGroups || [])}
           </div>
           <div>
             <div class="student-visual-title">群類年度變化（推估人數）</div>

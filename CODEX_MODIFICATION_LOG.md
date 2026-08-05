@@ -1882,3 +1882,18 @@
 - 移除 `comparison/index.html` 中三處先前樣式替換殘留的獨立 `$1` 字元。
 - 重新確認「學生群與來源群類變化」只於「招生與入學趨勢」下方呼叫一次，且在「新生來源樣態」之前。
 - 已再次同步 `comparison/index.html` 與 `comparison/data/student_group_data.json` 至輸出網站資料夾，並以 `node --check` 驗證腳本通過。
+## 2026-08-03 下午 - 學生群年度矩陣改為 Heatmap
+
+- 修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，將原本年度矩陣的小色塊 highlight 改為整格 heatmap。
+- Heatmap 設計：顏色沿用來源群類分類色；同一組比較中，可見群類的最大年度推估人數作為高值基準，格子越深代表該年度推估來源人數越多。
+- 新增 heatmap 圖例：「顏色＝來源群類；深淺＝推估人數」，並保留滑鼠移至格子時顯示群類、年度與推估人數。
+- 移除舊的 `annual-group-value` 小色塊呈現方式，改用 `.annual-heat-cell` 全格上色。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`；`student_group_data.json` 也同步至輸出資料夾。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-05 - 移除學生群推估來源群類 Bar
+
+- 依使用者建議，修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，刪除「110-114 推估來源群類」小橫條圖，只保留「群類年度變化（推估人數）」heatmap。
+- 移除 `studentGroupBars()` 函式，以及 `.group-bar-*` 相關 CSS，避免網站保留未使用的視覺元件。
+- 保留各系「群類對照率」圓環與年度 heatmap；heatmap 仍以顏色代表來源群類、深淺代表推估人數。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
