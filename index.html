@@ -2698,7 +2698,7 @@
     }
     function annualGroupMatrix(rows) {
       const years = ["110", "111", "112", "113", "114"];
-      const visibleRows = (rows || []).slice(0, 3);
+      const visibleRows = (rows || []).filter(row => row && row.label);
       if (!visibleRows.length) return `<div class="empty-state">目前沒有可視覺化的年度群類資料。</div>`;
       const maxValue = Math.max(...visibleRows.flatMap(row => years.map(year => Number(row.values?.[year] || 0))), 1);
       const heatStyle = (label, value) => {
@@ -2750,7 +2750,7 @@
             <div class="match-ring" style="--match:${Math.max(0, Math.min(matchRate, 100)).toFixed(1)}"><span>${escapeHtml(tech.matchedShare || "—")}</span></div>
           </div>
           <div>
-            <div class="student-visual-title">群類年度變化（推估人數）</div>
+            <div class="student-visual-title">群類年度變化（全部已推估群類，推估人數）</div>
             ${annualGroupMatrix(tech.annualGroups || [])}
           </div>
         </article>`;
@@ -2762,20 +2762,21 @@
             <p>置於招生趨勢之後，聚焦各系推估來源群類與110至114年群類年度變化；招生總量趨勢請見上方折線圖。</p>
           </div>
         </div>
+        <div class="student-group-grid">${cards}</div>
+        <div class="source-chart-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類；圓形指標為群類對照率，代表可由技高群類檔對照的來源學校人數占比。</div>
         <div class="method-box">
-          <h5>群類對照與來源推估計算方式</h5>
+          <h5>補充說明：群類對照與來源推估計算方式</h5>
           <ol>
             <li>先以「1-6各系新生入學前學校統計.xlsx」取得各系 110-114 年日間部四技入學生的來源學校與人數。</li>
             <li>再以「5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx」，用同年度、同來源學校名稱對照該校的技高群類高三人數。</li>
-            <li>若來源學校可對照到多個群類，依該校各群類高三人數占比分配該校進入本系的人數；若來源學校為未填、其他，或無法在群類檔對照，則列為未對照，不放入主要群類排序。</li>
+            <li>若來源學校可對照到多個群類，依該校各群類高三人數占比分配該校進入本系的人數；若來源學校為未填、其他，或無法在群類檔對照，則列為未對照，不放入 heatmap 的推估群類。</li>
+            <li>群類對照率若為 85.7%，表示 85.7% 的來源學校入學生數可完成群類推估，其餘 14.3% 因未填、非技高或無法自動對照而未納入群類推估。</li>
           </ol>
           <div class="method-formula">
             <code>推估來源群類人數 = Σ（該系來自某來源學校人數 × 該校該群類高三人數 ÷ 該校可對照群類高三總人數）</code>
             <code>群類對照率 = 可完成群類對照的來源學校入學生數 ÷ 110-114 年該系來源學校入學生總數</code>
           </div>
         </div>
-        <div class="student-group-grid">${cards}</div>
-        <div class="source-chart-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類；圓形指標為群類對照率，代表可由技高群類檔對照的來源學校人數占比。</div>
       </section>`;
     }
     function infoRow(label, value) {

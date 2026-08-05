@@ -1897,3 +1897,17 @@
 - 保留各系「群類對照率」圓環與年度 heatmap；heatmap 仍以顏色代表來源群類、深淺代表推估人數。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-05 - Heatmap 顯示全部已推估群類
+
+- 修改 `comparison/index.html` 的 `annualGroupMatrix()`，將原本 `annualGroups.slice(0, 3)` 改為顯示 `annualGroups` 中全部已推估群類。
+- 更新「學生群與來源群類變化」卡片標題為「群類年度變化（全部已推估群類，推估人數）」，避免誤解為只顯示前三大群類。
+- 目前 `comparison/data/student_group_data.json` 中各系 `annualGroups` 已包含目前整理出的可推估群類，例如管理與財金會稅組會顯示餐旅群；本次未重算原始數值，以維持既有資料計算結果一致。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-05 - 補充群類對照與來源推估說明
+
+- 修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，將「群類對照與來源推估計算方式」移到該區塊最下方，作為補充說明。
+- 補充說明內容包含資料來源、來源學校對照方式、無法對照情形，以及推估來源群類人數與群類對照率公式。
+- 新增白話說明：例如群類對照率 85.7% 表示 85.7% 可完成群類推估，其餘 14.3% 因未填、非技高或無法自動對照而未納入群類推估。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
