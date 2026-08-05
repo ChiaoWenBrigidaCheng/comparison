@@ -910,6 +910,7 @@
 
 - 中斷前曾依使用者貼上的截圖，在 `build_comparison_site.py` 暫時補入電子組可辨識之學分文字；`outputs/comparison_site/index.html` 與 `outputs/comparison_report/三組相似系所比較分析報告.md` 已重產，但尚未同步覆蓋 `comparison/三組相似系所比較分析報告.md`。
 - 若後續要公開使用該電子組數字，需確認是否只代表「電子組」，不要誤當整個建工／燕巢校區所有組別共同數字。
+
 ## 2026-07-23 趨勢推估說明浮層修正
 
 ### 1. 修改檔案
@@ -937,6 +938,7 @@
 - 已同步 `outputs/comparison_site/index.html` 至 `../comparison/index.html`。
 - 已執行 `python -m py_compile build_comparison_site.py`。
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
+
 ## 2026-07-23 新生來源資料來源標示修正
 
 ### 1. 修改檔案
@@ -966,6 +968,7 @@
 - 已同步 `outputs/comparison_site/index.html` 至 `../comparison/index.html`。
 - 已執行 `python -m py_compile build_comparison_site.py`。
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
+
 ## 2026-07-23 網站移除處理方案並改置分析報告
 
 ### 1. 修改檔案
@@ -1004,6 +1007,7 @@
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
 - 已確認 `../comparison/index.html` 與 `outputs/comparison_site/index.html` 不含「處理方案」「可採方案」「主要風險」。
 - 已確認 `../115_名稱雷同之系所比較分析_含處理方案.docx` 是有效 docx，且包含「處理方案」與「可採方案」文字。
+
 ## 2026-07-28 推估說明提示與圖表單位修正
 
 ### 1. 修改檔案
@@ -1036,6 +1040,7 @@
 - 已執行 `python -m py_compile build_comparison_site.py`。
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
 - 已確認 `../comparison/index.html` 與 `outputs/comparison_site/index.html` 含圖表單位文字，且未重新出現「處理方案」「可採方案」「主要風險」。
+
 ## 2026-07-28 趨勢區塊改為可見單位與公式說明
 
 ### 1. 修改檔案
@@ -1068,6 +1073,7 @@
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
 - 已確認 `../comparison/index.html` 與 `outputs/comparison_site/index.html` 含 `單位：人`、`推估公式說明`、`115-116：趨勢推估值`。
 - 已確認 `../comparison/index.html` 未重新出現「處理方案」「可採方案」「主要風險」。
+
 ## 2026-07-28 新增產學合作收入網站區塊
 
 ### 1. 新增資料來源
@@ -1125,6 +1131,7 @@
 - 已確認 `../comparison/index.html` 與 `outputs/comparison_site/index.html` 含 `產學合作收入`、`產學_每師平均產學收入.xlsx`、`114每師平均`、`萬元/師`、`產學合作占比`。
 - 已確認 `../comparison/index.html` 未出現 `金融資訊系`。
 - 已確認 `../comparison/index.html` 未重新出現「處理方案」「可採方案」「主要風險」。
+
 ## 2026-07-28 折線圖節點數值標示
 
 ### 1. 修改檔案
@@ -1156,6 +1163,7 @@
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
 - 已確認 `../comparison/index.html` 與 `outputs/comparison_site/index.html` 含 `chart-point-label` 與 `chartValueLabel()`。
 - 已確認 `../comparison/index.html` 未重新出現「處理方案」「可採方案」「主要風險」。
+
 ## 2026-07-28 移除重疊 tooltip 說明
 
 ### 1. 修改檔案
@@ -1183,6 +1191,7 @@
 - 已使用 Node 檢查 `../comparison/index.html` 內嵌 JavaScript 可正常解析。
 - 已確認 tooltip 函式輸出含 `data-tip` 與 `aria-label`，不再含 `title`。
 - 已確認 `../comparison/index.html` 未重新出現「處理方案」「可採方案」「主要風險」。
+
 ## 2026-07-28 趨勢圖 y 軸與節點標籤調整
 
 ### 1. 修改檔案
@@ -1398,6 +1407,7 @@
 - 已用 Node 解析 `../comparison/index.html` 內嵌 JavaScript，結果為 `JS parse OK`。
 - 已確認 `build_comparison_site.py`、`outputs/comparison_site/index.html`、`../comparison/index.html` 不再包含 `trend3d`、`management3DTrendChart` 或 `3D趨勢圖`。
 - 已使用圖片檢視工具檢查 `管理雙系_招生趨勢3D圖.png`，圖中文字與折線內容可辨識。
+
 ## 2026-07-29 報告圖檔由 3D 改為 2D
 
 ### 1. 修改檔案
@@ -1428,6 +1438,7 @@
 - 已檢視 `管理雙系_招生趨勢2D圖.png`，確認節點數值可辨識且底部說明未重疊。
 - 已確認圖檔資料夾不再保留 `管理雙系_招生趨勢3D圖.png` 與 `管理雙系_招生趨勢3D圖.svg`。
 - 已用 `rg` 確認網站輸出與網站產生器未殘留 `trend3d`、`management3DTrendChart`、`3D趨勢圖` 或 `招生趨勢3D圖` 字串。
+
 ## 2026-07-29 新增電子工程雙校區與第三組四系招生趨勢圖
 
 ### 1. 修改檔案
@@ -1454,6 +1465,7 @@
 - 已執行 `python build_report_figures.py`，成功輸出三組 PNG 與 SVG 圖檔。
 - 已檢視 `電子工程雙校區_招生趨勢2D圖.png`，確認節點數值與線尾標籤可辨識。
 - 已檢視 `第三組四系_招生趨勢2D圖.png`，確認四系折線、節點數值與底部資料說明可辨識。
+
 ## 2026-07-29 修正 FWCI/FWVI 指標翻譯
 
 ### 1. 修改檔案
@@ -1502,6 +1514,7 @@
 - 已用 Node 檢查 `../comparison/index.html` JavaScript，結果為 `JS parse OK`。
 - 已搜尋確認網站、報告與產生器中不再有舊表頭 `| 瀏覽影響力 |`、`<th>瀏覽影響力</th>` 或 `FWCI領域權重引用影響力`。
 - 嘗試重跑 `build_research_capacity_dashboard.py` 時，程式回報找不到含 `Data` 工作表的研究量能 Excel 原始檔；因此本次未重建 `outputs/research_capacity/research_capacity_summary.json`，網站仍沿用既有摘要數值，但呈現名稱已改為 FWVI。
+
 ## 2026-07-29 修正第三組四系招生趨勢圖節點標籤重疊
 
 ### 1. 修改檔案
@@ -1527,6 +1540,7 @@
 - 已執行 `python -m py_compile build_report_figures.py`，語法檢查通過。
 - 已執行 `python build_report_figures.py`，重新產生三組招生趨勢 PNG/SVG 圖檔。
 - 已檢視 `第三組四系_招生趨勢2D圖.png`，確認113與114年度節點數值已錯開，整體可辨識性改善。
+
 ## 2026-07-30 新生來源樣態新增互動式圓餅圖
 
 ### 1. 修改檔案
@@ -1615,6 +1629,7 @@
 - 已同步更新 `comparison/index.html`、`comparison/三組相似系所比較分析報告.md`、`comparison/三組相似系所比較分析報告.html`。
 - 已用 Node 檢查 `comparison/index.html` 的 JavaScript，可解析，結果為 `JS parse OK`。
 - 已搜尋 `comparison` 資料夾，未找到 `FWVI`、`領域加權瀏覽`、`瀏覽影響力`、`viewsImpact` 舊字樣。
+
 ## 2026-07-30 新生來源樣態報告圖產製
 
 ### 1. 新增與更新檔案
@@ -1654,6 +1669,7 @@
 - 已確認 `comparison/figures/source_profiles/` 內有18個PNG與18個SVG。
 - 已用 PIL 抽查圖像尺寸與非空白像素比例，確認圖檔非空白。
 - 已檢查 `comparison/新生來源樣態比較圖清單.md` 內36個PNG/SVG連結，缺漏數為0。
+
 ## 2026-07-30 FWCI 顯示名稱改為中文
 
 ### 1. 修改檔案
@@ -1688,6 +1704,7 @@
 - 已確認 `comparison/index.html` 的 JavaScript 可解析，結果為 `JS parse OK`。
 - 已抽查網站資料內 FWCI 數值：國際企業系 0.75、企業管理系 1.12、電子工程系[建工|燕巢校區] 0.80、電子工程系[第一] 0.44、財務管理系 0.29、財政稅務系 0.47、金融系 1.18、會計資訊系 0.73。
 - 已搜尋 `comparison` 資料夾，未找到 `Field-weighted citation index`、`FWVI`、`領域加權瀏覽`、`瀏覽影響力`、`viewsImpact` 舊字樣。
+
 ## 2026-07-30 新生來源樣態報告圖改為圓餅圖
 
 ### 1. 修改檔案
@@ -1716,6 +1733,7 @@
 - 已確認 `comparison/figures/source_profiles/` 內有18個PNG與18個SVG。
 - 已用 PIL 檢查18張PNG尺寸與非空白像素變異，`blank=0`。
 - 已檢查 `comparison/新生來源樣態比較圖清單.md` 內36個PNG/SVG連結，缺漏數為0。
+
 ## 2026-07-30 併入110-113個人層級新生來源資料並更新網站名稱
 
 ### 1. 修改檔案
@@ -1767,6 +1785,7 @@
 - 已解析 `comparison/index.html` 內嵌資料，確認8個系所在5個個人層級新生來源分類中皆具備 `110`、`111`、`112`、`113`、`114`、`110-114` 年度資料鍵，缺漏數為0。
 - 已用 Node 檢查 `comparison/index.html` 的 JavaScript，可解析，結果為 `JS parse OK`。
 - 已搜尋 public 輸出，未找到舊網站名稱 `相似系所比較分析網站`、`114個人層級樣態使用`、`114年個人層級資料` 等舊說明。
+
 ## 2026-07-30 網站新生來源圓餅圖圖例距離調整
 
 ### 1. 修改檔案
@@ -1789,6 +1808,7 @@
 - 已同步 `outputs/comparison_site/index.html` 至 `comparison/index.html`。
 - 已搜尋 `comparison/index.html`，確認包含新版 CSS：`grid-template-columns: 14px minmax(120px, max-content) max-content`、`width: fit-content`、`max-width: 560px`。
 - 已用 Node 檢查 `comparison/index.html` 的 JavaScript，可解析，結果為 `JS parse OK`。
+
 ## 2026-07-30 重新產出產學合作收入報告圖
 
 ### 1. 修改與新增檔案
@@ -1829,6 +1849,7 @@
 - 已確認 `comparison/figures/industry_income/` 內有3個PNG與3個SVG。
 - 已用 PIL 檢查3張PNG尺寸與非空白像素變異，`blank_png=[]`。
 - 已檢查 `comparison/產學合作收入圖清單.md` 內6個PNG/SVG連結，缺漏數為0。
+
 ## 2026-08-03 下午 - 網站 index.html：新生來源配色、研究每師平均、學生群與生源變化
 
 - 修改 `comparison/index.html`，並同步至 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
@@ -1859,6 +1880,7 @@
 - 調整表格下方註記，明確說明推估來源群類是來源學校層級推估，非個別學生實際群類。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
 - 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
+
 ## 2026-08-03 下午 - 網站呈現：學生群與生源變化改為圖示卡片
 
 - 修改 `comparison/index.html` 的「學生群與生源變化」區塊，將原本的表格呈現改為每系一張視覺化卡片。
@@ -1867,6 +1889,7 @@
 - 保留「群類對照與來源推估計算方式」說明框與下方資料限制註記。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
 - 驗證：抽出 `comparison/index.html` 的 `<script>` 區塊執行 `node --check`，語法檢查通過。
+
 ## 2026-08-03 下午 - 調整學生群與來源群類變化區塊
 
 - 更新 `comparison/data/student_group_data.json`，新增各系 `annualGroups` 欄位，保留110至114年各來源群類推估人數與百分比。
@@ -1875,13 +1898,16 @@
 - 縮小群類橫條與卡片視覺，新增年度矩陣呈現110至114群類變化，避免與上方招生趨勢圖重複。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+
 ### 追加文字修正
 - 微調「新生來源樣態」說明，移除與新區塊重複的「生源變化與推估來源群類」描述，讓該段只聚焦戶籍、學校區域、入學管道、公私立別與來源學校。
 - 已重新同步 `comparison/index.html` 至 `系所雷同比較Raw data/outputs/comparison_site/index.html`，並以 `node --check` 驗證腳本通過。
+
 ### 追加清理
 - 移除 `comparison/index.html` 中三處先前樣式替換殘留的獨立 `$1` 字元。
 - 重新確認「學生群與來源群類變化」只於「招生與入學趨勢」下方呼叫一次，且在「新生來源樣態」之前。
 - 已再次同步 `comparison/index.html` 與 `comparison/data/student_group_data.json` 至輸出網站資料夾，並以 `node --check` 驗證腳本通過。
+
 ## 2026-08-03 下午 - 學生群年度矩陣改為 Heatmap
 
 - 修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，將原本年度矩陣的小色塊 highlight 改為整格 heatmap。
@@ -1890,6 +1916,7 @@
 - 移除舊的 `annual-group-value` 小色塊呈現方式，改用 `.annual-heat-cell` 全格上色。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html`；`student_group_data.json` 也同步至輸出資料夾。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+
 ## 2026-08-05 - 移除學生群推估來源群類 Bar
 
 - 依使用者建議，修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，刪除「110-114 推估來源群類」小橫條圖，只保留「群類年度變化（推估人數）」heatmap。
@@ -1897,6 +1924,7 @@
 - 保留各系「群類對照率」圓環與年度 heatmap；heatmap 仍以顏色代表來源群類、深淺代表推估人數。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+
 ## 2026-08-05 - Heatmap 顯示全部已推估群類
 
 - 修改 `comparison/index.html` 的 `annualGroupMatrix()`，將原本 `annualGroups.slice(0, 3)` 改為顯示 `annualGroups` 中全部已推估群類。
@@ -1904,10 +1932,29 @@
 - 目前 `comparison/data/student_group_data.json` 中各系 `annualGroups` 已包含目前整理出的可推估群類，例如管理與財金會稅組會顯示餐旅群；本次未重算原始數值，以維持既有資料計算結果一致。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+
 ## 2026-08-05 - 補充群類對照與來源推估說明
 
 - 修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，將「群類對照與來源推估計算方式」移到該區塊最下方，作為補充說明。
 - 補充說明內容包含資料來源、來源學校對照方式、無法對照情形，以及推估來源群類人數與群類對照率公式。
 - 新增白話說明：例如群類對照率 85.7% 表示 85.7% 可完成群類推估，其餘 14.3% 因未填、非技高或無法自動對照而未納入群類推估。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+
+## 2026-08-05 - MD 修改紀錄格式修正
+
+- 整理 `CODEX_MODIFICATION_LOG.md` 的 Markdown 段落間距，確保 `##` 與 `###` 標題前保留空行，避免標題黏在上一段項目後方。
+- 以 `系所雷同比較Raw data/CODEX_MODIFICATION_LOG.md` 作為主檔修正後，同步覆蓋 `comparison/CODEX_MODIFICATION_LOG.md`，維持兩份紀錄一致。
+- 修正前次整理時殘留的字面換行標記，改回真正的 Markdown 空行。
+
+## 2026-08-05 - 刪除學生群區塊說明文字
+
+- 修改 `comparison/index.html` 的「學生群與來源群類變化」區塊，刪除段落開頭文字「置於招生趨勢之後，」。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-05 - 新生來源縣市圓餅圖配色修正
+
+- 修改 `comparison/index.html` 的 `sourceColorOverrides`，新增常見縣市固定配色，避免戶籍縣市與來源地區圓餅圖使用 fallback 顏色時出現過於相近的色塊。
+- 重點修正：`新北市` 固定為藍色 `#0072B2`，`台南市` 固定為橘色 `#E69F00`，使兩者在圓餅圖與圖例中更容易區分。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
