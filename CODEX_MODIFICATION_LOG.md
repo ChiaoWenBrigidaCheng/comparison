@@ -1975,3 +1975,9 @@
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
 - 驗證：掃描網站資料中 288 張新生來源 pie chart，單張最多 7 個切片，未發現同一張圖內顏色重複，且未使用黑色或前次深灰色碼。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+## 2026-08-05 - 新生來源樣態參考資料位置調整
+
+- 修改 `comparison/index.html` 的「新生來源樣態」區塊，將參考資料說明移至副標文字下方。
+- 移除互動式圓餅圖下方動態說明中的「參考資料：...」行，圖表下方目前只保留圖名、合計人數與年度切換說明。
+- 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
+- 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。

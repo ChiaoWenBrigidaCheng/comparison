@@ -2686,8 +2686,7 @@
             <div class="pie-legend">${legend}</div>
             <div class="source-chart-note">
               <strong>${escapeHtml(title)}</strong><br>
-              合計：${escapeHtml(total)}人。${escapeHtml(limitation)}<br>
-              參考資料：${escapeHtml(chart.source)}
+              合計：${escapeHtml(total)}人。${escapeHtml(limitation)}
             </div>
           </div>
         </div>`;
@@ -2882,11 +2881,11 @@
           <div>
               <h3>新生來源樣態</h3>
               <p>以110至114年日間部四技個人層級資料呈現戶籍、畢業學校區域、入學管道與公私立別；來源學校另輔以110至114年日間部四技加總資料。</p>
+              ${sourceNote("source")}
             </div>
           </div>
           ${sourcePieDashboard(group)}
           ${sourceProfiles(group)}
-          ${sourceNote("source")}
         </section>
         <section class="section">
           <div class="section-head">
