@@ -2009,3 +2009,10 @@
 - 資料層檢查結果：畢業學校區域與公私立別圓餅圖已無錯置標籤；各系 `fiveYearByYear` 加總均等於 `total110114`。
 - 圓餅圖配色稽核：288 張圖、78 個細項，inconsistent=0、duplicateCharts=0、forbiddenUsed=0、最低色距 57.6。
 - `comparison/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/index.html` hash 一致；兩份 `CODEX_MODIFICATION_LOG.md` hash 一致。
+
+## 2026-08-06 - Word報告與清理後資料一致性檢核
+
+- 讀取 `115_名稱及課程相似系所比較分析.docx` 內文，並與目前 `comparison/index.html` 清理後 `SITE_DATA` 及 `comparison/新生來源資料核對_20260806.md` 進行一致性檢核。
+- 新增檢核檔：`comparison/報告與清理後資料一致性檢核_20260806.md`。
+- 檢核結論：報告整體方向大致可用；需修正資料來源說明、部分招生趨勢數字、第三組新生來源段落誤貼、電子工程雙校區每師平均發表量正文數字，以及少數百分比與用詞。
+- 本次未修改 Word 報告本體；僅產出檢核 MD 供後續改稿使用。
