@@ -1992,3 +1992,20 @@
 - 使用者再次提醒：為避免 Codex token 或 credits 用完後無法接續，後續任何網站、資料、圖表、報告或輔助檔案修改，都必須同步記錄於 `CODEX_MODIFICATION_LOG.md`。
 - 每次紀錄建議包含：修改時間、修改檔案、修改內容、資料來源或計算方式變動、驗證結果、是否已同步到 `comparison` 與 `系所雷同比較Raw data/outputs/comparison_site`。
 - 目前維持兩份紀錄檔同步：`系所雷同比較Raw data/CODEX_MODIFICATION_LOG.md` 與 `comparison/CODEX_MODIFICATION_LOG.md`。
+
+## 2026-08-06 - 新生來源個人層級資料重新核對與網站更新
+
+- 重新讀取 `入學年110-113日間部四技學生.xlsx` 與 `入學年114年日間部四技學生.xlsx`，僅納入三組指定比較系所與 `日間部四技` 學制；排除 `金融資訊系` 與 `國際智慧金融技優專班`，避免相近名稱誤納入。
+- 更新 `comparison/index.html` 的新生來源樣態資料：來源學校、戶籍縣市、戶籍區域、畢業學校區域、入學管道、公私立別均改由兩份個人層級 Excel 重新彙整；`fiveYearByYear` 也改為個人層級資料筆數。
+- 修正欄位值異常處理：`畢業學校地理區域` 若出現學校名稱、`公私立別` 若出現非 `公立`/`私立` 值，網站先歸為 `未填`，並在核對檔保留原始 Excel 列號供人工回查。
+- 新增核對檔：`comparison/新生來源資料核對_20260806.md`、`comparison/新生來源資料核對_20260806.xlsx`。
+- 同步輸出版：`系所雷同比較Raw data/outputs/comparison_site/index.html`。
+- 核對摘要：納入資料共 3467 筆；欄位異常需人工回查 35 筆；110-113檔 2789 筆、114檔 678 筆。
+
+### 驗證補充（2026-08-06）
+
+- `comparison/index.html` 內 `<script>` 已通過 `node --check`。
+- 重新由兩份個人層級 Excel 計算新生來源樣態，與網站 `sourceCharts` 全分類比對結果為 `diffs=0`。
+- 資料層檢查結果：畢業學校區域與公私立別圓餅圖已無錯置標籤；各系 `fiveYearByYear` 加總均等於 `total110114`。
+- 圓餅圖配色稽核：288 張圖、78 個細項，inconsistent=0、duplicateCharts=0、forbiddenUsed=0、最低色距 57.6。
+- `comparison/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/index.html` hash 一致；兩份 `CODEX_MODIFICATION_LOG.md` hash 一致。
