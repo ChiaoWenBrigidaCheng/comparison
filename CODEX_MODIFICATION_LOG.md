@@ -1981,3 +1981,14 @@
 - 移除互動式圓餅圖下方動態說明中的「參考資料：...」行，圖表下方目前只保留圖名、合計人數與年度切換說明。
 - 同步更新 `系所雷同比較Raw data/outputs/comparison_site/index.html` 與 `系所雷同比較Raw data/outputs/comparison_site/data/student_group_data.json`。
 - 驗證：抽出 `comparison/index.html` 內 `<script>` 執行 `node --check`，結果通過。
+## 2026-08-06 - 新生來源樣態圓餅圖固定細項配色
+
+- 修改 `comparison/index.html` 新生來源樣態圓餅圖配色邏輯，改為先建立全站細項色彩對照表，確保同一戶籍縣市、同一來源學校、同一入學管道等細項跨三組系所固定同色。
+- 加入 72 色柔和候選色盤與相近色避讓門檻（RGB 色距 55），同一張圖中若固定色太接近，會自動改用辨識度較高的柔和色。
+- 移除黑色與深灰使用風險，並同步 `系所雷同比較Raw data/outputs/comparison_site/index.html`。
+- 驗證：`comparison/index.html` 內 `<script>` 經 `node --check` 通過；稽核 288 張圓餅圖、93 個細項，inconsistent=0、duplicateCharts=0、forbiddenUsed=0、最低色距 57.6。
+## 2026-08-06 - 交接與紀錄規則確認
+
+- 使用者再次提醒：為避免 Codex token 或 credits 用完後無法接續，後續任何網站、資料、圖表、報告或輔助檔案修改，都必須同步記錄於 `CODEX_MODIFICATION_LOG.md`。
+- 每次紀錄建議包含：修改時間、修改檔案、修改內容、資料來源或計算方式變動、驗證結果、是否已同步到 `comparison` 與 `系所雷同比較Raw data/outputs/comparison_site`。
+- 目前維持兩份紀錄檔同步：`系所雷同比較Raw data/CODEX_MODIFICATION_LOG.md` 與 `comparison/CODEX_MODIFICATION_LOG.md`。

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
@@ -2001,54 +2001,68 @@
     };
     const colors = ["#78A6D8", "#E68A83", "#6CC3A4", "#A58BD3", "#E5C65C", "#74C7D3", "#E99AC8", "#8FA3B8"];
     const sourceColorOverrides = {
-      "其他": "#B8C4D3",
+      "其他": "#D0D8E2",
       "未填": "#A0B085",
       "台北市": "#8FA3B8",
-      "新北市": "#0072B2",
-      "桃園市": "#6A3D9A",
-      "台中市": "#6F8FB5",
-      "台南市": "#E69F00",
-      "高雄市": "#009E73",
-      "基隆市": "#56B4E9",
-      "新竹市": "#8B5CF6",
-      "新竹縣": "#0EA5E9",
-      "苗栗縣": "#A6761D",
-      "彰化縣": "#CC79A7",
-      "南投縣": "#16A34A",
-      "雲林縣": "#84CC16",
-      "嘉義市": "#F97316",
-      "嘉義縣": "#D55E00",
-      "屏東縣": "#DC2626",
-      "宜蘭縣": "#22C55E",
-      "花蓮縣": "#9333EA",
-      "台東縣": "#E7298A",
-      "澎湖縣": "#0891B2",
-      "金門縣": "#B45309",
-      "連江縣": "#475569",
-      "北部": "#2563EB",
-      "中部": "#16A34A",
-      "南部": "#DC2626",
-      "東部": "#9333EA",
-      "外島": "#EA580C",
-      "公立": "#0072B2",
-      "私立": "#D55E00",
-      "登記分發": "#0072B2",
-      "聯合甄選": "#009E73",
-      "繁星計畫": "#CC79A7",
-      "技優甄保": "#E69F00",
-      "特殊選才": "#6A3D9A",
-      "高中申請入學": "#56B4E9",
-      "其他(本校招生)": "#E7298A",
-      "其他(聯合招生)": "#8B5CF6",
-      "轉學": "#8FA3B8"
+      "新北市": "#78A6D8",
+      "桃園市": "#A58BD3",
+      "台中市": "#C49A78",
+      "台南市": "#E5C65C",
+      "高雄市": "#6CC3A4",
+      "基隆市": "#74C7D3",
+      "新竹市": "#77B8B5",
+      "新竹縣": "#8FAEEA",
+      "苗栗縣": "#9FBF6F",
+      "彰化縣": "#E99AC8",
+      "南投縣": "#82C99A",
+      "雲林縣": "#D9B24C",
+      "嘉義市": "#F2A65A",
+      "嘉義縣": "#E68A83",
+      "屏東縣": "#D98989",
+      "宜蘭縣": "#7BB7CB",
+      "花蓮縣": "#B399D4",
+      "台東縣": "#D69AB8",
+      "澎湖縣": "#73A8A4",
+      "金門縣": "#B89477",
+      "連江縣": "#A0B085",
+      "北部": "#78A6D8",
+      "中部": "#9FBF6F",
+      "南部": "#E68A83",
+      "東部": "#B399D4",
+      "外島": "#F2A65A",
+      "公立": "#78A6D8",
+      "私立": "#E68A83",
+      "登記分發": "#78A6D8",
+      "聯合甄選": "#E68A83",
+      "繁星計畫": "#A58BD3",
+      "技優甄保": "#6CC3A4",
+      "特殊選才": "#E99AC8",
+      "高中申請入學": "#E5C65C",
+      "其他(本校招生)": "#D69AB8",
+      "其他(聯合招生)": "#74C7D3",
+      "轉學": "#C49A78"
     };
-    const sourceFallbackColors = ["#78A6D8", "#E68A83", "#6CC3A4", "#E99AC8", "#E5C65C", "#A58BD3", "#D69AB8", "#8FA3B8", "#74C7D3", "#C49A78"];
-    const piePalette = [
-      "#78A6D8", "#E68A83", "#6CC3A4", "#A58BD3", "#E99AC8", "#E5C65C",
-      "#9FBF6F", "#C49A78", "#D69AB8", "#74C7D3", "#77B8B5", "#D98989",
-      "#8FAEEA", "#F2A65A", "#82C99A", "#B399D4", "#E38AB5", "#D9B24C",
-      "#7BB7CB", "#B89477", "#C48CA3", "#92B85B", "#73A8A4", "#C97878"
-    ];
+    function hslToHex(hue, saturation, lightness) {
+      const s = saturation / 100;
+      const l = lightness / 100;
+      const k = n => (n + hue / 30) % 12;
+      const a = s * Math.min(l, 1 - l);
+      const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+      return [f(0), f(8), f(4)]
+        .map(value => Math.round(255 * value).toString(16).padStart(2, "0"))
+        .join("")
+        .toUpperCase();
+    }
+    function makeSoftPiePalette(count = 72) {
+      return Array.from({ length: count }, (_, index) => {
+        const hue = (index * 137.508 + Math.floor(index / 12) * 17) % 360;
+        const saturation = 48 + (index % 4) * 6;
+        const lightness = 62 + (index % 3) * 4;
+        return `#${hslToHex(hue, saturation, lightness)}`;
+      });
+    }
+    const piePalette = makeSoftPiePalette();
+    const sourceFallbackColors = piePalette.slice(0, 12);
     function sourceColor(label) {
       const key = String(label || "").trim();
       if (sourceColorOverrides[key]) return sourceColorOverrides[key];
@@ -2059,21 +2073,83 @@
       }
       return sourceFallbackColors[Math.abs(hash) % sourceFallbackColors.length];
     }
-    function pieRowsWithColors(rows) {
-      const neutralColors = { "其他": "#B8C4D3", "未填": "#A0B085" };
-      let paletteIndex = 0;
-      const used = new Set();
-      return (rows || []).map(row => {
-        const label = String(row.label || "").trim();
-        let color = neutralColors[label];
-        if (!color) {
-          while (used.has(piePalette[paletteIndex % piePalette.length])) paletteIndex += 1;
-          color = piePalette[paletteIndex % piePalette.length];
-          paletteIndex += 1;
-        }
-        used.add(color);
-        return { ...row, color };
+    function colorDistance(hexA, hexB) {
+      const parse = hex => {
+        const number = Number.parseInt(String(hex || "#000000").replace("#", ""), 16);
+        return [(number >> 16) & 255, (number >> 8) & 255, number & 255];
+      };
+      const a = parse(hexA);
+      const b = parse(hexB);
+      return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2);
+    }
+    const pieColorMinimumDistance = 55;
+    function buildSourcePieColorMap() {
+      const stats = new Map();
+      const conflicts = new Map();
+      const touch = label => {
+        if (!label) return;
+        if (!stats.has(label)) stats.set(label, 0);
+        if (!conflicts.has(label)) conflicts.set(label, new Set());
+        stats.set(label, stats.get(label) + 1);
+      };
+      const addConflict = (a, b) => {
+        if (!a || !b || a === b) return;
+        if (!conflicts.has(a)) conflicts.set(a, new Set());
+        if (!conflicts.has(b)) conflicts.set(b, new Set());
+        conflicts.get(a).add(b);
+        conflicts.get(b).add(a);
+      };
+      (SITE_DATA.groups || []).forEach(group => {
+        (group.sourceProfiles || []).forEach(profile => {
+          Object.values(profile.sourceCharts || {}).forEach(chart => {
+            Object.values(chart.years || {}).forEach(rows => {
+              const labels = [...new Set((rows || []).map(row => String(row.label || "").trim()).filter(Boolean))];
+              labels.forEach(touch);
+              for (let i = 0; i < labels.length; i += 1) {
+                for (let j = i + 1; j < labels.length; j += 1) addConflict(labels[i], labels[j]);
+              }
+            });
+          });
+        });
       });
+      const map = new Map();
+      const labels = [...stats.keys()].sort((a, b) => {
+        const degreeDiff = (conflicts.get(b)?.size || 0) - (conflicts.get(a)?.size || 0);
+        if (degreeDiff) return degreeDiff;
+        const freqDiff = (stats.get(b) || 0) - (stats.get(a) || 0);
+        return freqDiff || a.localeCompare(b, "zh-Hant");
+      });
+      labels.forEach(label => {
+        const neighborColors = [...(conflicts.get(label) || [])].map(neighbor => map.get(neighbor)).filter(Boolean);
+        const fixedColor = sourceColorOverrides[label];
+        if (fixedColor && neighborColors.every(color => colorDistance(fixedColor, color) >= pieColorMinimumDistance)) {
+          map.set(label, fixedColor);
+          return;
+        }
+        let bestColor = piePalette[0];
+        let bestScore = -1;
+        piePalette.forEach((candidate, index) => {
+          if (neighborColors.includes(candidate)) return;
+          const minDistance = neighborColors.length
+            ? Math.min(...neighborColors.map(color => colorDistance(candidate, color)))
+            : 999;
+          const score = (minDistance >= pieColorMinimumDistance ? minDistance + 1000 : minDistance) - index / 1000;
+          if (score > bestScore) {
+            bestScore = score;
+            bestColor = candidate;
+          }
+        });
+        map.set(label, bestColor);
+      });
+      return map;
+    }
+    const sourcePieColorMap = buildSourcePieColorMap();
+    function sourcePieColor(label) {
+      const key = String(label || "").trim();
+      return sourcePieColorMap.get(key) || sourceColor(key);
+    }
+    function pieRowsWithColors(rows) {
+      return (rows || []).map(row => ({ ...row, color: sourcePieColor(row.label) }));
     }
     const fmt = new Intl.NumberFormat("zh-TW", { maximumFractionDigits: 1 });
     function escapeHtml(value) {
