@@ -637,12 +637,12 @@
       box-shadow: var(--shadow-subtle);
     }
     .source-controls {
-      .reference-note {
-        font-size: 11px;
-        color: var(--muted);
-        line-height: 1.5;
-        font-family: inherit;
-      }
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .source-controls label {
       display: grid;
       gap: 6px;
       color: var(--muted);
@@ -2447,11 +2447,11 @@
             escapeHtml(profile.total114),
             escapeHtml(profile.sourceSchoolCount110114),
             escapeHtml(profile.sourceSchoolCount114),
-            distText(profile.fiveYearTopOriginDepartments),
-            distText(profile.fiveYearTopHomeCities),
-            distText(profile.fiveYearTopAdmissionChannels),
+            distText(profile.topSchools114),
+            distText(profile.topHomeCities114),
+            distText(profile.topAdmissionChannels114),
           ]);
-        return { headers: ["系所", "110-114人數", "114人數", "110-114來源學校數", "114來源學校數", "110-114主要來源學校", "110-114戶籍縣市", "110-114入學管道"], rows };
+        return { headers: ["系所", "110-114人數", "114人數", "110-114來源學校數", "114來源學校數", "114主要來源學校", "114戶籍縣市", "114入學管道"], rows };
       }
       if (type === "research") {
         const rows = group.researchRows
@@ -2782,24 +2782,24 @@
       renderSourcePie();
     }
     function sourceProfiles(group) {
-        return `<div class="source-grid">${group.sourceProfiles.map(profile => `
+      return `<div class="source-grid">${group.sourceProfiles.map(profile => `
         <article class="source-card">
           <h4>${escapeHtml(profile.department)}</h4>
           <p class="source-summary">${escapeHtml(profile.summary)}</p>
           <div class="source-facts">
-            <div class="source-fact"><span>110-114日間部四技（合計）</span><strong>${escapeHtml(profile.total110114)}</strong></div>
-            <div class="source-fact"><span>來源學校數（110-114）</span><strong>${escapeHtml(profile.sourceSchoolCount110114)}</strong></div>
+            <div class="source-fact"><span>114日間部四技</span><strong>${escapeHtml(profile.total114)}</strong></div>
+            <div class="source-fact"><span>來源學校數</span><strong>${escapeHtml(profile.sourceSchoolCount114)}</strong></div>
           </div>
-          <div class="source-block-title">110-114主要來源學校（合計）</div>
-          <div class="dist-list">${distributionRows(profile.fiveYearTopOriginDepartments)}</div>
-          <div class="source-block-title">110-114戶籍縣市</div>
-          <div class="dist-list">${distributionRows((profile.fiveYearTopHomeCities || []).slice(0, 3))}</div>
-          <div class="source-block-title">110-114畢業學校地理區域</div>
-          <div class="dist-list">${distributionRows(profile.fiveYearTopGraduationRegions)}</div>
-          <div class="source-block-title">110-114入學管道</div>
-          <div class="dist-list">${distributionRows((profile.fiveYearTopAdmissionChannels || []).slice(0, 4))}</div>
+          <div class="source-block-title">114主要來源學校（114個人資料）</div>
+          <div class="dist-list">${distributionRows(profile.topSchools114)}</div>
+          <div class="source-block-title">114戶籍縣市</div>
+          <div class="dist-list">${distributionRows(profile.topHomeCities114.slice(0, 3))}</div>
+          <div class="source-block-title">114畢業學校地理區域</div>
+          <div class="dist-list">${distributionRows(profile.topGraduationRegions114)}</div>
+          <div class="source-block-title">114入學管道</div>
+          <div class="dist-list">${distributionRows(profile.topAdmissionChannels114.slice(0, 4))}</div>
           <div class="source-block-title">110-114累計主要來源學校（1-6統計）</div>
-          <div class="dist-list">${distributionRows(profile.fiveYearTopOriginDepartments)}</div>
+          <div class="dist-list">${distributionRows(profile.fiveYearTopSchools)}</div>
         </article>`).join("")}</div>`;
     }
     function sourceTrendChangeText(profile) {
@@ -2883,7 +2883,7 @@
           </div>
         </div>
         <div class="student-group-grid">${cards}</div>
-        <div class="source-chart-note reference-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類。</div>
+        <div class="source-chart-note">參考資料：1-6各系新生入學前學校統計.xlsx；5_110-114學年度技術型高中各校日間部各群類學生人數.xlsx。推估來源群類為來源學校層級推估，非個別學生實際群類；圓形指標為群類對照率，代表可由技高群類檔對照的來源學校人數占比。</div>
         <div class="method-box">
           <h5>補充說明：群類對照與來源推估計算方式</h5>
           <ol>
@@ -2956,7 +2956,7 @@
           <div class="section-head">
           <div>
               <h3>新生來源樣態</h3>
-              <p>以合併個人層級檔案 <code>110-114入學年日間部四技學生.xlsx</code> 為主要資料來源，呈現戶籍、畢業學校區域、入學管道與公私立別；來源學校另輔以 <code>1-6各系新生入學前學校統計.xlsx</code> 的加總資料。</p>
+              <p>以110至114年日間部四技個人層級資料呈現戶籍、畢業學校區域、入學管道與公私立別；來源學校另輔以110至114年日間部四技加總資料。</p>
               ${sourceNote("source")}
             </div>
           </div>
