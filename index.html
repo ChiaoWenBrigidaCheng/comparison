@@ -2082,72 +2082,37 @@
       const b = parse(hexB);
       return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2);
     }
-    const pieColorMinimumDistance = 55;
-    function buildSourcePieColorMap() {
-      const stats = new Map();
-      const conflicts = new Map();
-      const touch = label => {
-        if (!label) return;
-        if (!stats.has(label)) stats.set(label, 0);
-        if (!conflicts.has(label)) conflicts.set(label, new Set());
-        stats.set(label, stats.get(label) + 1);
-      };
-      const addConflict = (a, b) => {
-        if (!a || !b || a === b) return;
-        if (!conflicts.has(a)) conflicts.set(a, new Set());
-        if (!conflicts.has(b)) conflicts.set(b, new Set());
-        conflicts.get(a).add(b);
-        conflicts.get(b).add(a);
-      };
-      (SITE_DATA.groups || []).forEach(group => {
-        (group.sourceProfiles || []).forEach(profile => {
-          Object.values(profile.sourceCharts || {}).forEach(chart => {
-            Object.values(chart.years || {}).forEach(rows => {
-              const labels = [...new Set((rows || []).map(row => String(row.label || "").trim()).filter(Boolean))];
-              labels.forEach(touch);
-              for (let i = 0; i < labels.length; i += 1) {
-                for (let j = i + 1; j < labels.length; j += 1) addConflict(labels[i], labels[j]);
-              }
-            });
-          });
-        });
-      });
-      const map = new Map();
-      const labels = [...stats.keys()].sort((a, b) => {
-        const degreeDiff = (conflicts.get(b)?.size || 0) - (conflicts.get(a)?.size || 0);
-        if (degreeDiff) return degreeDiff;
-        const freqDiff = (stats.get(b) || 0) - (stats.get(a) || 0);
-        return freqDiff || a.localeCompare(b, "zh-Hant");
-      });
-      labels.forEach(label => {
-        const neighborColors = [...(conflicts.get(label) || [])].map(neighbor => map.get(neighbor)).filter(Boolean);
-        const fixedColor = sourceColorOverrides[label];
-        if (fixedColor && neighborColors.every(color => colorDistance(fixedColor, color) >= pieColorMinimumDistance)) {
-          map.set(label, fixedColor);
-          return;
-        }
-        let bestColor = piePalette[0];
-        let bestScore = -1;
-        piePalette.forEach((candidate, index) => {
-          if (neighborColors.includes(candidate)) return;
-          const minDistance = neighborColors.length
-            ? Math.min(...neighborColors.map(color => colorDistance(candidate, color)))
-            : 999;
-          const score = (minDistance >= pieColorMinimumDistance ? minDistance + 1000 : minDistance) - index / 1000;
-          if (score > bestScore) {
-            bestScore = score;
-            bestColor = candidate;
-          }
-        });
-        map.set(label, bestColor);
-      });
-      return map;
+    function normalizeColorKey(label) {
+      return String(label || "")
+        .trim()
+        .replace(/[（(]日間部[）)]/g, "")
+        .replace(/\s+/g, "");
     }
-    const sourcePieColorMap = buildSourcePieColorMap();
+
+    // Stable FNV-1a hash: the same label always receives the same palette index,
+    // regardless of ranking, year, department, or chart order.
+    function stableLabelHash(text) {
+      let hash = 0x811c9dc5;
+      const value = String(text || "");
+      for (let i = 0; i < value.length; i += 1) {
+        hash ^= value.charCodeAt(i);
+        hash = Math.imul(hash, 0x01000193);
+      }
+      return hash >>> 0;
+    }
+
     function sourcePieColor(label) {
-      const key = String(label || "").trim();
-      return sourcePieColorMap.get(key) || sourceColor(key);
+      const rawKey = String(label || "").trim();
+      const key = normalizeColorKey(rawKey);
+
+      if (sourceColorOverrides[rawKey]) return sourceColorOverrides[rawKey];
+      if (sourceColorOverrides[key]) return sourceColorOverrides[key];
+      if (rawKey === "其他" || key === "其他") return "#D5DBDB";
+      if (rawKey === "未填" || key === "未填") return "#BFC9D9";
+
+      return piePalette[stableLabelHash(key) % piePalette.length];
     }
+
     function pieRowsWithColors(rows) {
       return (rows || []).map(row => ({ ...row, color: sourcePieColor(row.label) }));
     }
