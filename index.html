@@ -1987,7 +1987,7 @@
       "Top 10%引用": "Output in Top 10% Citation Percentiles (%)",
       "主題廣度": "Subject Area Main Category Count",
       "領域加權引用影響力 (FWCI)": "Field-Weighted Citation Impact (SciVal)",
-      "2018–2025年均每師發表量": "Annual Scholarly Output per Researcher, averaged across 2018–2025"
+      "年均每師發表量": "Annual Scholarly Output per Researcher, averaged across 2018–2025"
     };
     const SECTION_SOURCES = {
       kpi: "招生與入學趨勢主要資料：110-114入學年日間部四技學生.xlsx；115招生名額：111-115學年度招生名額.xlsx；研究量能：擷取自SciVal (2018-2025)。",
@@ -2142,7 +2142,7 @@
     }
     function researchPerTeacherIndicator(group, selectedDepartments = null) {
       return tooltip(
-        "2018–2025年均每師發表量",
+        "年均每師發表量",
         "計算方式：先逐年計算「當年度 Scholarly Output ÷ 當年度 Researchers」，再將2018–2025八個年度的每師發表量取算術平均。單位：篇／師／年。"
       );
     }
