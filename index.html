@@ -716,6 +716,38 @@
     .source-bar-fill { height: 100%; min-width: 2px; border-radius: 999px; background: linear-gradient(90deg,#8dc8d1,#2f7f8f); }
     .source-bar-value { min-width: 104px; text-align: right; color: var(--navy); font-weight: 700; font-size: 13px; white-space: nowrap; }
     .source-bar-note { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .estimate-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #fff4d6;
+      border: 1px solid #f1d08a;
+      color: #9a6700;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .estimate-cell {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    th.estimate-col,
+    td.estimate-col {
+      background: #fffdf6;
+    }
+    .estimate-zone-label {
+      font-size: 12px;
+      fill: #9a6700;
+      font-weight: 700;
+    }
+
     @media (max-width: 760px) {
       .source-bar-row { grid-template-columns: minmax(120px,1.25fr) minmax(110px,1fr); }
       .source-bar-value { grid-column: 1 / -1; text-align: left; margin-top: -4px; }
@@ -1313,6 +1345,8 @@
       const range = Math.max(axis.max - min, 1);
       const x = index => pad.left + index * ((width - pad.left - pad.right) / (SITE_DATA.years.length - 1));
       const y = value => height - pad.bottom - ((value - min) / range) * (height - pad.top - pad.bottom);
+      const forecastStartX = (x(4) + x(5)) / 2;
+      const forecastZoneWidth = (width - pad.right) - forecastStartX;
       const grid = axis.ticks.map(value => {
         const yy = y(value);
         return `<line x1="${pad.left}" y1="${yy}" x2="${width - pad.right}" y2="${yy}" stroke="#e4e9f2" stroke-width="1"/>
@@ -1323,33 +1357,49 @@
       ).join("");
       const series = rows.map((row, rowIndex) => {
         const color = colors[rowIndex % colors.length];
-        const points = row.values.map((value, index) => `${x(index)},${y(value)}`).join(" ");
-        const markers = row.values.map((value, index) =>
+        const actualPoints = row.values.slice(0, 5).map((value, index) => `${x(index)},${y(value)}`).join(" ");
+        const forecastPoints = row.values.slice(4).map((value, index) => `${x(index + 4)},${y(value)}`).join(" ");
+        const actualMarkers = row.values.slice(0, 5).map((value, index) =>
           `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="${color}"><title>${escapeHtml(row.department)} ${SITE_DATA.years[index]}: ${fmt.format(value)}人</title></circle>`
         ).join("");
-        return `<polyline points="${points}" fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${markers}`;
+        const forecastMarkers = row.values.slice(5).map((value, index) =>
+          `<circle cx="${x(index + 5)}" cy="${y(value)}" r="4.6" fill="#ffffff" stroke="${color}" stroke-width="2.2"><title>${escapeHtml(row.department)} ${SITE_DATA.years[index + 5]}（推估）: ${fmt.format(value)}人</title></circle>`
+        ).join("");
+        return `
+          <polyline points="${actualPoints}" fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="${forecastPoints}" fill="none" stroke="${color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 7" opacity="0.95"/>
+          ${actualMarkers}${forecastMarkers}`;
       }).join("");
       const legend = rows.map((row, index) =>
         `<span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;"><span style="width:12px;height:12px;background:${colors[index % colors.length]};display:inline-block;border-radius:2px;"></span>${escapeHtml(row.department)}</span>`
       ).join("");
+      const estimateLegend = `<span style="display:inline-flex;align-items:center;gap:8px;margin-right:16px;">
+        <svg width="40" height="12" viewBox="0 0 40 12" aria-hidden="true">
+          <line x1="2" y1="6" x2="38" y2="6" stroke="#9a6700" stroke-width="2.5" stroke-dasharray="7 5"/>
+          <circle cx="30" cy="6" r="3.2" fill="#ffffff" stroke="#9a6700" stroke-width="1.8"/>
+        </svg>
+        <span>115-116推估值</span>
+      </span>`;
       return `<div class="chart-wrap">
         <div class="chart-note">
           <span><strong>單位：</strong>入學人數（人）</span>
           <span><strong>橫軸：</strong>學年度</span>
-          <span><strong>115-116：</strong>趨勢推估值</span>
+          <span><strong>預估標示：</strong>115-116 以虛線與空心點表示</span>
         </div>
         <details class="formula-details">
           <summary>推估公式說明</summary>
           <p>${escapeHtml(TREND_FORMULA_TIP)}</p>
         </details>
-        <svg class="line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(group.title)}入學趨勢，單位為入學人數，橫軸為學年度">
+        <svg class="line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(group.title)}入學趨勢，單位為入學人數，橫軸為學年度；115與116以虛線表示推估值">
           ${grid}
+          <rect x="${forecastStartX}" y="${pad.top}" width="${forecastZoneWidth}" height="${height - pad.top - pad.bottom}" fill="#fff8e8" opacity="0.75" rx="6"/>
+          <text x="${forecastStartX + 10}" y="${pad.top + 16}" class="estimate-zone-label">115-116 預估區</text>
           <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}" stroke="#cfd7e6" stroke-width="1.2"/>
           <line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" stroke="#cfd7e6" stroke-width="1"/>
           ${yearLabels}
           ${series}
         </svg>
-        <div style="padding:0 10px 8px;color:#475467;font-size:13px;">${legend}</div>
+        <div style="padding:0 10px 8px;color:#475467;font-size:13px;">${legend}${estimateLegend}</div>
       </div>`;
     }
     function kpis(group) {
@@ -1414,6 +1464,14 @@
         <div>${escapeHtml(row.label)} ${escapeHtml(row.count)}人/${escapeHtml(row.share)}</div>
       `).join("")}</div>`;
     }
+
+    function estimateBadge(label = "預估") {
+      return `<span class="estimate-badge">${escapeHtml(label)}</span>`;
+    }
+    function estimateCell(value, label = "預估") {
+      return `<span class="estimate-cell">${estimateBadge(label)}<span>${escapeHtml(value)}</span></span>`;
+    }
+
     function explorerRows(group, type, selectedDepartments) {
       const selected = new Set(selectedDepartments);
       if (type === "enrollment") {
@@ -1421,13 +1479,13 @@
           .filter(row => selected.has(row.department))
           .map(row => [
             `<strong>${escapeHtml(row.department)}</strong>`,
-            ...SITE_DATA.years.map((year, index) => escapeHtml(index <= 4 ? fmt.format(row.values[index]) : row[year === 115 ? "forecast115" : "forecast116"])),
+            ...SITE_DATA.years.map((year, index) => index <= 4 ? escapeHtml(fmt.format(row.values[index])) : estimateCell(row[year === 115 ? "forecast115" : "forecast116"])),
             escapeHtml(row.quota115),
             escapeHtml(row.gap115),
             `<span class="status ${row.status115.includes("未") ? "warn" : ""}">${escapeHtml(row.status115)}</span>`,
           ]);
         return {
-          headers: ["系所", "110", "111", "112", "113", "114", tooltip("115推估", TREND_FORMULA_TIP), tooltip("116推估", TREND_FORMULA_TIP), "115名額", "115推估缺口", "狀態"],
+          headers: ["系所", "110", "111", "112", "113", "114", `<span class="estimate-col">${tooltip("115推估", TREND_FORMULA_TIP)} ${estimateBadge()}</span>`, `<span class="estimate-col">${tooltip("116推估", TREND_FORMULA_TIP)} ${estimateBadge()}</span>`, "115名額", "115推估缺口", "狀態"],
           rows,
         };
       }
@@ -1503,15 +1561,15 @@
     function enrollmentTable(group) {
       return `<div class="table-wrap"><table>
         <thead><tr>
-          <th>系所</th><th>學院</th><th>110-114變動</th><th>${tooltip("115推估", TREND_FORMULA_TIP)}</th><th>${tooltip("116推估", TREND_FORMULA_TIP)}</th><th>115名額</th><th>115推估名額比</th><th>115推估缺口</th><th>狀態</th>
+          <th>系所</th><th>學院</th><th>110-114變動</th><th class="estimate-col">${tooltip("115推估", TREND_FORMULA_TIP)} ${estimateBadge()}</th><th class="estimate-col">${tooltip("116推估", TREND_FORMULA_TIP)} ${estimateBadge()}</th><th>115名額</th><th>115推估名額比</th><th>115推估缺口</th><th>狀態</th>
         </tr></thead>
         <tbody>${group.enrollmentRows.map(row => `
           <tr>
             <td><strong>${escapeHtml(row.department)}</strong></td>
             <td>${escapeHtml(row.college)}</td>
             <td>${escapeHtml(row.change110114)}</td>
-            <td>${escapeHtml(row.forecast115)}</td>
-            <td>${escapeHtml(row.forecast116)}</td>
+            <td class="estimate-col">${estimateCell(row.forecast115)}</td>
+            <td class="estimate-col">${estimateCell(row.forecast116)}</td>
             <td>${escapeHtml(row.quota115)}</td>
             <td>${escapeHtml(row.achievement115)}</td>
             <td>${escapeHtml(row.gap115)}</td>
